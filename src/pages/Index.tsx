@@ -7,6 +7,12 @@ import ServicesSection from "@/components/ServicesSection";
 import AboutSection from "@/components/AboutSection";
 import ContactSection from "@/components/ContactSection";
 import Footer from "@/components/Footer";
+import TestimonialsCarousel from "@/components/TestimonialsCarousel";
+import WorkProcess from "@/components/WorkProcess";
+import PaymentMethods from "@/components/PaymentMethods";
+import AIChat from "@/components/AIChat";
+import InfoModal from "@/components/InfoModal";
+import Notification from "@/components/Notification";
 
 const Index = () => {
   return (
@@ -20,13 +26,21 @@ const Index = () => {
       
       <main>
         <HeroSection />
+        <WorkProcess />
         <ProjectsSection />
+        <TestimonialsCarousel />
         <ServicesSection />
+        <PaymentMethods />
         <AboutSection />
         <ContactSection />
       </main>
       
       <Footer />
+      
+      {/* Componentes interativos */}
+      <AIChat />
+      <InfoModal />
+      <Notification delay={10000} />
     </motion.div>
   );
 };
