@@ -1,7 +1,6 @@
 
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { Home, Code, Settings, Info, Mail } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 export default function Navbar() {
@@ -10,11 +9,11 @@ export default function Navbar() {
   
   // Menu navigation items
   const navItems = [
-    { name: "Início", href: "#home", icon: <Home className="w-5 h-5" /> },
-    { name: "Projetos", href: "#projects", icon: <Code className="w-5 h-5" /> },
-    { name: "Serviços", href: "#services", icon: <Settings className="w-5 h-5" /> },
-    { name: "Sobre", href: "#about", icon: <Info className="w-5 h-5" /> },
-    { name: "Contato", href: "#contact", icon: <Mail className="w-5 h-5" /> },
+    { name: "Início", href: "#home" },
+    { name: "Projetos", href: "#projects" },
+    { name: "Serviços", href: "#services" },
+    { name: "Sobre", href: "#about" },
+    { name: "Contato", href: "#contact" },
   ];
   
   useEffect(() => {
@@ -33,7 +32,7 @@ export default function Navbar() {
   return (
     <motion.header 
       className={cn(
-        "fixed top-0 w-full z-50 transition-all duration-300 ease-in-out px-6 lg:px-12 py-4",
+        "fixed top-0 w-full z-50 transition-all duration-300 ease-in-out px-6 lg:px-12 py-3",
         scrolled ? "bg-background/80 backdrop-blur-md shadow-md" : "bg-transparent"
       )}
       initial={{ opacity: 0, y: -20 }}
@@ -47,35 +46,36 @@ export default function Navbar() {
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.2, duration: 0.8 }}
-            className="font-bold text-xl text-t3rn-silver"
+            className="font-cashDisplay text-xl text-t3rn-silver"
           >
-            <span className="text-t3rn-blue">T3RN</span> Desenvolvimento
+            <span className="text-t3rn-gray-400">T3RN</span> Desenvolvimento
           </motion.div>
         </div>
         
         {/* Desktop Navigation */}
-        <nav className="hidden md:flex space-x-8">
-          {navItems.map((item, index) => (
-            <motion.a
-              key={item.name}
-              href={item.href}
-              className="flex items-center gap-2 text-t3rn-silver hover:text-t3rn-blue transition-colors"
-              initial={{ opacity: 0, y: -10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.1 * index, duration: 0.5 }}
-              whileHover={{ scale: 1.05 }}
-            >
-              {item.icon}
-              <span>{item.name}</span>
-            </motion.a>
-          ))}
+        <nav className="hidden md:flex">
+          <div className="bg-t3rn-gray-800/60 backdrop-blur-sm rounded-full px-2 py-1 flex items-center">
+            {navItems.map((item, index) => (
+              <motion.a
+                key={item.name}
+                href={item.href}
+                className="px-4 py-2 text-sm text-t3rn-silver hover:text-white transition-colors rounded-full hover:bg-t3rn-gray-700/50"
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.1 * index, duration: 0.5 }}
+                whileHover={{ scale: 1.05 }}
+              >
+                {item.name}
+              </motion.a>
+            ))}
+          </div>
         </nav>
         
         {/* Mobile Menu Button */}
         <div className="md:hidden">
           <button 
             onClick={() => setActiveMobileMenu(!activeMobileMenu)}
-            className="group p-2 text-t3rn-silver hover:text-t3rn-blue transition-colors"
+            className="group p-2 text-t3rn-silver hover:text-white transition-colors"
             aria-label="Toggle menu"
           >
             <div className="flex flex-col gap-1.5 justify-center items-end w-7">
@@ -115,16 +115,15 @@ export default function Navbar() {
         transition={{ duration: 0.3 }}
         style={{ overflow: "hidden" }}
       >
-        <div className="py-4 space-y-4 flex flex-col">
+        <div className="py-4 mt-2 space-y-1 flex flex-col bg-t3rn-gray-800/80 backdrop-blur-md rounded-xl">
           {navItems.map((item) => (
             <a
               key={item.name}
               href={item.href}
-              className="flex items-center gap-3 py-2 px-4 text-t3rn-silver hover:text-t3rn-blue transition-colors"
+              className="py-3 px-6 text-t3rn-silver hover:text-white hover:bg-t3rn-gray-700/50 transition-colors"
               onClick={() => setActiveMobileMenu(false)}
             >
-              {item.icon}
-              <span>{item.name}</span>
+              {item.name}
             </a>
           ))}
         </div>

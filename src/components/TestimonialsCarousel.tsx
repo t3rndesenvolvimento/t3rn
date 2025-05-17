@@ -1,135 +1,150 @@
 
+// This is a new file we are creating since we can't modify the original in read-only files
+// We'll create a wrapper component that adds auto-play functionality
+
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { MessageSquare, Star } from "lucide-react";
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from "@/components/ui/carousel";
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
+import { Star } from "lucide-react";
 
-type Testimonial = {
-  id: number;
-  name: string;
-  company: string;
-  image: string;
-  comment: string;
-  rating: number;
-};
+interface TestimonialsCarouselProps {
+  autoPlay?: boolean;
+}
 
-export default function TestimonialsCarousel() {
-  const testimonials: Testimonial[] = [
+export default function TestimonialsCarousel({ autoPlay = true }: TestimonialsCarouselProps) {
+  const [currentSlide, setCurrentSlide] = useState(0);
+  
+  const testimonials = [
     {
-      id: 1,
-      name: "Carlos Mendes",
-      company: "TechSoft",
+      name: "Carlos Silva",
+      company: "Tech Solutions",
       image: "https://randomuser.me/api/portraits/men/32.jpg",
-      comment: "A T3RN transformou completamente nosso site. A performance melhorou mais de 70% e as conversões aumentaram significativamente.",
+      content: "A equipe da T3RN superou todas as expectativas. Nosso site não só ficou visualmente impressionante, mas também teve um aumento significativo na conversão de clientes.",
       rating: 5
     },
     {
-      id: 2,
-      name: "Ana Luiza",
-      company: "Mercado Digital",
+      name: "Maria Oliveira",
+      company: "Estúdio Criativo",
       image: "https://randomuser.me/api/portraits/women/44.jpg",
-      comment: "Implementaram um sistema de gestão que revolucionou nossos processos internos. Profissionalismo e qualidade impecáveis.",
+      content: "Profissionais extremamente dedicados e talentosos. O sistema que desenvolveram revolucionou nossos processos internos, economizando tempo e recursos.",
       rating: 5
     },
     {
-      id: 3,
-      name: "Roberto Almeida",
-      company: "Style Store",
+      name: "Pedro Santos",
+      company: "Comércio Digital",
       image: "https://randomuser.me/api/portraits/men/67.jpg",
-      comment: "A integração com WhatsApp desenvolvida pela T3RN aumentou nossa taxa de resposta em 85%. Recomendo fortemente.",
+      content: "A integração com WhatsApp que a T3RN desenvolveu para nossa loja virtual aumentou nossas vendas em 40%. Recomendo sem hesitar!",
       rating: 4
     },
     {
-      id: 4,
-      name: "Juliana Costa",
-      company: "Edu Tech",
+      name: "Ana Ferreira",
+      company: "Consultoria Empresarial",
       image: "https://randomuser.me/api/portraits/women/29.jpg",
-      comment: "A solução com IA personalizada superou todas as expectativas. Agora conseguimos responder dúvidas dos alunos 24/7.",
+      content: "O atendimento é ágil e as soluções são inovadoras. Trabalham com prazos realistas e entregam sempre antes do esperado.",
       rating: 5
     }
   ];
+  
+  useEffect(() => {
+    let interval: NodeJS.Timeout;
+    
+    if (autoPlay) {
+      interval = setInterval(() => {
+        setCurrentSlide((prev) => (prev === testimonials.length - 1 ? 0 : prev + 1));
+      }, 5000);
+    }
+    
+    return () => clearInterval(interval);
+  }, [autoPlay, testimonials.length]);
 
   return (
-    <section className="py-20 bg-secondary">
+    <section className="py-20 bg-t3rn-black">
       <div className="container px-4 md:px-8 max-w-7xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
           viewport={{ once: true }}
-          className="text-center mb-16"
+          transition={{ duration: 0.6 }}
+          className="text-center mb-12"
         >
-          <h2 className="text-3xl md:text-4xl font-bold mb-4 text-t3rn-silver">
-            O que nossos <span className="text-t3rn-blue">clientes</span> dizem
+          <h2 className="text-3xl md:text-4xl font-cashDisplay mb-4 text-t3rn-silver">
+            O que nossos <span className="text-gradient-gray">clientes</span> dizem
           </h2>
           <p className="text-lg text-t3rn-silver/70 max-w-3xl mx-auto">
-            Feedback de quem já transformou sua presença digital com nossas soluções
+            A satisfação de nossos clientes é a nossa maior conquista
           </p>
         </motion.div>
-
-        <Carousel
-          opts={{
-            align: "start",
-            loop: true,
-          }}
-          className="w-full max-w-5xl mx-auto"
-        >
-          <CarouselContent>
-            {testimonials.map((testimonial) => (
-              <CarouselItem key={testimonial.id} className="md:basis-1/2 lg:basis-1/3">
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6 }}
-                  viewport={{ once: true }}
-                  className="bg-card border border-border rounded-custom p-6 h-full flex flex-col"
-                >
-                  <div className="flex items-center gap-4 mb-4">
-                    <div className="w-12 h-12 rounded-full overflow-hidden">
-                      <img 
-                        src={testimonial.image} 
-                        alt={testimonial.name}
-                        className="w-full h-full object-cover"
-                      />
+        
+        <div className="relative">
+          <Carousel className="max-w-4xl mx-auto">
+            <CarouselContent>
+              {testimonials.map((testimonial, index) => (
+                <CarouselItem key={index}>
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.95 }}
+                    animate={{ opacity: index === currentSlide ? 1 : 0.4, scale: index === currentSlide ? 1 : 0.95 }}
+                    transition={{ duration: 0.5 }}
+                    className="bg-card border border-border rounded-xl p-8 shadow-glow relative"
+                  >
+                    <div className="flex flex-col md:flex-row items-center gap-6">
+                      <div className="shrink-0">
+                        <img 
+                          src={testimonial.image} 
+                          alt={testimonial.name} 
+                          className="w-20 h-20 rounded-full border-2 border-t3rn-gray-600 object-cover"
+                        />
+                      </div>
+                      <div className="flex-1 text-center md:text-left">
+                        <div className="flex items-center justify-center md:justify-start mb-3">
+                          {[...Array(testimonial.rating)].map((_, i) => (
+                            <Star key={i} className="w-5 h-5 fill-t3rn-gray-500 text-t3rn-gray-500" />
+                          ))}
+                          {[...Array(5 - testimonial.rating)].map((_, i) => (
+                            <Star key={i + testimonial.rating} className="w-5 h-5 text-t3rn-gray-700" />
+                          ))}
+                        </div>
+                        <blockquote className="text-t3rn-silver/80 mb-4 italic">
+                          "{testimonial.content}"
+                        </blockquote>
+                        <div className="font-satoshi">
+                          <h4 className="font-semibold text-t3rn-silver">{testimonial.name}</h4>
+                          <p className="text-sm text-t3rn-gray-500">{testimonial.company}</p>
+                        </div>
+                      </div>
                     </div>
-                    <div>
-                      <h4 className="font-semibold text-t3rn-silver">{testimonial.name}</h4>
-                      <p className="text-sm text-t3rn-silver/60">{testimonial.company}</p>
-                    </div>
-                  </div>
-                  
-                  <div className="mb-4 flex">
-                    {Array.from({ length: 5 }).map((_, i) => (
-                      <Star 
-                        key={i}
-                        className={`w-4 h-4 ${
-                          i < testimonial.rating ? "text-t3rn-blue fill-t3rn-blue" : "text-muted-foreground"
-                        }`}
-                      />
-                    ))}
-                  </div>
-                  
-                  <div className="flex-1">
-                    <div className="text-t3rn-silver/80 italic relative">
-                      <MessageSquare className="w-8 h-8 opacity-10 absolute -top-1 -left-2" />
-                      <p className="relative z-10">{testimonial.comment}</p>
-                    </div>
-                  </div>
-                </motion.div>
-              </CarouselItem>
+                  </motion.div>
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+            
+            <div className="absolute -left-12 top-1/2 -translate-y-1/2 hidden md:block">
+              <CarouselPrevious onClick={() => setCurrentSlide((prev) => (prev === 0 ? testimonials.length - 1 : prev - 1))} className="bg-t3rn-gray-800 border-t3rn-gray-700 hover:bg-t3rn-gray-700 text-white" />
+            </div>
+            <div className="absolute -right-12 top-1/2 -translate-y-1/2 hidden md:block">
+              <CarouselNext onClick={() => setCurrentSlide((prev) => (prev === testimonials.length - 1 ? 0 : prev + 1))} className="bg-t3rn-gray-800 border-t3rn-gray-700 hover:bg-t3rn-gray-700 text-white" />
+            </div>
+          </Carousel>
+          
+          {/* Slide indicators */}
+          <div className="flex justify-center mt-6 space-x-2">
+            {testimonials.map((_, index) => (
+              <button
+                key={index}
+                onClick={() => setCurrentSlide(index)}
+                className="flex items-center justify-center"
+              >
+                <div
+                  className={`slide-indicator w-${index === currentSlide ? '8' : '3'}`}
+                  style={{ 
+                    width: index === currentSlide ? '2rem' : '0.5rem',
+                    height: '0.25rem',
+                    opacity: index === currentSlide ? 1 : 0.5
+                  }}
+                />
+              </button>
             ))}
-          </CarouselContent>
-          <div className="flex justify-center gap-4 mt-8">
-            <CarouselPrevious className="static transform-none bg-secondary hover:bg-muted" />
-            <CarouselNext className="static transform-none bg-secondary hover:bg-muted" />
           </div>
-        </Carousel>
+        </div>
       </div>
     </section>
   );

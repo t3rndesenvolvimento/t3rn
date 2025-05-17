@@ -66,7 +66,17 @@ export default {
 				t3rn: {
 					black: "#000000",
 					silver: "#C0C0C0",
-					blue: "#00BFFF",
+					gray: {
+						100: "#F6F6F7",
+						200: "#E5E5E6",
+						300: "#D4D4D6",
+						400: "#C3C3C5",
+						500: "#A0A0A3",
+						600: "#808083",
+						700: "#606063",
+						800: "#404043",
+						900: "#202023",
+					}
 				}
 			},
 			borderRadius: {
@@ -74,6 +84,7 @@ export default {
 				md: 'calc(var(--radius) - 2px)',
 				sm: 'calc(var(--radius) - 4px)',
 				'custom': '15px',
+				'xl': '20px',
 			},
 			keyframes: {
 				'accordion-down': {
@@ -103,6 +114,9 @@ export default {
 				'float': {
 					'0%, 100%': { transform: 'translateY(0)' },
 					'50%': { transform: 'translateY(-10px)' },
+				},
+				'ping': {
+					'75%, 100%': { transform: 'scale(2)', opacity: '0' },
 				}
 			},
 			animation: {
@@ -113,8 +127,11 @@ export default {
 				'logo-entrance': 'logo-entrance 1.2s ease-out forwards',
 				'pulse-glow': 'pulse-glow 2s ease-in-out infinite',
 				'float': 'float 6s ease-in-out infinite',
+				'ping': 'ping 1s cubic-bezier(0, 0, 0.2, 1) infinite',
 			},
 			fontFamily: {
+				satoshi: ["Satoshi", "sans-serif"],
+				cashDisplay: ["Cash Display", "serif"],
 				montserrat: ["Montserrat", "sans-serif"],
 				roboto: ["Roboto Mono", "monospace"],
 			}

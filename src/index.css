@@ -1,5 +1,7 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Roboto+Mono:wght@400;500&display=swap');
+@import url('https://api.fontshare.com/v2/css?f[]=satoshi@700,500,400&display=swap');
+@import url('https://fonts.cdnfonts.com/css/cash-display');
 
 @tailwind base;
 @tailwind components;
@@ -16,7 +18,7 @@
     --popover: 0 0% 0%;
     --popover-foreground: 0 0% 75%;
 
-    --primary: 196 100% 50%;
+    --primary: 0 0% 60%;
     --primary-foreground: 0 0% 0%;
 
     --secondary: 0 0% 15%;
@@ -25,7 +27,7 @@
     --muted: 0 0% 15%;
     --muted-foreground: 0 0% 60%;
 
-    --accent: 196 100% 50%;
+    --accent: 0 0% 60%;
     --accent-foreground: 0 0% 0%;
 
     --destructive: 0 84.2% 60.2%;
@@ -33,18 +35,18 @@
 
     --border: 0 0% 20%;
     --input: 0 0% 15%;
-    --ring: 196 100% 50%;
+    --ring: 0 0% 60%;
 
-    --radius: 0.75rem;
+    --radius: 1.25rem;
 
     --sidebar-background: 0 0% 7%;
     --sidebar-foreground: 0 0% 75%;
-    --sidebar-primary: 196 100% 50%;
+    --sidebar-primary: 0 0% 60%;
     --sidebar-primary-foreground: 0 0% 0%;
     --sidebar-accent: 0 0% 15%;
     --sidebar-accent-foreground: 0 0% 75%;
     --sidebar-border: 0 0% 20%;
-    --sidebar-ring: 196 100% 50%;
+    --sidebar-ring: 0 0% 60%;
   }
 
   * {
@@ -52,12 +54,12 @@
   }
 
   body {
-    @apply bg-background text-foreground font-montserrat;
+    @apply bg-background text-foreground font-satoshi;
     scroll-behavior: smooth;
   }
   
   ::selection {
-    @apply bg-t3rn-blue/40 text-white;
+    @apply bg-t3rn-gray-500/40 text-white;
   }
 
   .code-text {
@@ -70,12 +72,12 @@
     -webkit-text-stroke: 1px #C0C0C0;
   }
   
-  .text-gradient-blue {
-    @apply bg-gradient-to-r from-t3rn-silver to-t3rn-blue bg-clip-text text-transparent;
+  .text-gradient-gray {
+    @apply bg-gradient-to-r from-t3rn-gray-400 to-t3rn-gray-600 bg-clip-text text-transparent;
   }
   
   .shadow-glow {
-    box-shadow: 0 0 15px rgba(0, 191, 255, 0.5);
+    box-shadow: 0 0 15px rgba(160, 160, 160, 0.5);
   }
   
   .bg-grid {
@@ -83,5 +85,10 @@
     background-image: 
       linear-gradient(to right, rgba(192, 192, 192, 0.05) 1px, transparent 1px),
       linear-gradient(to bottom, rgba(192, 192, 192, 0.05) 1px, transparent 1px);
+  }
+
+  .slide-indicator {
+    @apply bg-t3rn-gray-500 h-1 mx-1 rounded-full;
+    transition: width 0.3s ease;
   }
 }
