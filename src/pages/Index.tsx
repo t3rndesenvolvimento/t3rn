@@ -1,6 +1,7 @@
 
 import { motion, useMotionValueEvent, useScroll } from "framer-motion";
 import { useState, useEffect } from "react";
+import { Helmet } from 'react-helmet';
 import Navbar from "@/components/Navbar";
 import HeroSection from "@/components/HeroSection";
 import ProjectsSection from "@/components/ProjectsSection";
@@ -47,8 +48,28 @@ const Index = () => {
     };
   }, []);
 
+  // Animation variants for sections
+  const fadeInUpVariants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
+  };
+
   return (
     <div className="min-h-screen bg-white dark:bg-gray-950 text-gray-900 dark:text-gray-200 overflow-x-hidden">
+      <Helmet>
+        <title>T3RN Desenvolvimento | Soluções Digitais Personalizadas</title>
+        <meta name="description" content="Transformamos ideias em soluções digitais impactantes. Desenvolvimento web, aplicativos móveis e sistemas personalizados para seu negócio." />
+        <meta name="keywords" content="desenvolvimento web, aplicativos móveis, sistemas personalizados, T3RN, desenvolvimento de software" />
+        <meta property="og:title" content="T3RN Desenvolvimento | Soluções Digitais" />
+        <meta property="og:description" content="Transformamos ideias em soluções digitais impactantes. Desenvolvimento web, aplicativos móveis e sistemas personalizados." />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://t3rn.com.br" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="T3RN Desenvolvimento | Soluções Digitais" />
+        <meta name="twitter:description" content="Transformamos ideias em soluções digitais impactantes. Desenvolvimento web, aplicativos e sistemas personalizados." />
+        <link rel="canonical" href="https://t3rn.com.br" />
+      </Helmet>
+      
       <Navbar />
       
       {/* Scroll Progress Bar */}
@@ -58,14 +79,76 @@ const Index = () => {
       />
       
       <main>
-        <HeroSection />
-        <WorkProcess />
-        <ProjectsSection />
-        <ServicesSection />
-        <TestimonialsCarousel autoPlay={!isScrolling} />
-        <PaymentMethods />
-        <AboutSection />
-        <ContactSection />
+        <motion.div
+          initial="hidden"
+          animate="visible"
+          variants={fadeInUpVariants}
+        >
+          <HeroSection />
+        </motion.div>
+        
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+          variants={fadeInUpVariants}
+        >
+          <WorkProcess />
+        </motion.div>
+        
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+          variants={fadeInUpVariants}
+        >
+          <ProjectsSection />
+        </motion.div>
+        
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+          variants={fadeInUpVariants}
+        >
+          <ServicesSection />
+        </motion.div>
+        
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+          variants={fadeInUpVariants}
+        >
+          <TestimonialsCarousel autoPlay={!isScrolling} />
+        </motion.div>
+        
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+          variants={fadeInUpVariants}
+        >
+          <PaymentMethods />
+        </motion.div>
+        
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+          variants={fadeInUpVariants}
+        >
+          <AboutSection />
+        </motion.div>
+        
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+          variants={fadeInUpVariants}
+        >
+          <ContactSection />
+        </motion.div>
       </main>
       
       <Footer />
@@ -73,7 +156,7 @@ const Index = () => {
       {/* Interactive components */}
       <AIChat />
       <InfoModal />
-      <Notification delay={7000} />
+      <Notification delay={5000} />
     </div>
   );
 };
