@@ -1,167 +1,190 @@
 
 import { motion } from "framer-motion";
-import { CreditCard, Landmark, QrCode, Banknote, Clock, Shield, Calendar } from "lucide-react";
+import { CreditCard, Landmark, QrCode, CalendarClock, Shield, Clock } from "lucide-react";
 
 export default function PaymentMethods() {
   const paymentMethods = [
     {
-      icon: <CreditCard className="w-10 h-10" />,
+      icon: <CreditCard className="w-6 h-6" />,
       title: "Cartão de Crédito",
-      description: "Parcele em até 12x com os principais cartões do mercado."
+      description: "Parcele em até 12x sem juros nos principais cartões."
     },
     {
-      icon: <QrCode className="w-10 h-10" />,
+      icon: <QrCode className="w-6 h-6" />,
       title: "PIX",
-      description: "Pagamento instantâneo com desconto especial de 5%."
+      description: "Pagamento instantâneo com 10% de desconto à vista."
     },
     {
-      icon: <Landmark className="w-10 h-10" />,
-      title: "Boleto Bancário",
-      description: "Opção tradicional com prazo de vencimento flexível."
-    },
-    {
-      icon: <Banknote className="w-10 h-10" />,
+      icon: <Landmark className="w-6 h-6" />,
       title: "Transferência",
-      description: "Transferência bancária para os principais bancos."
+      description: "Transferência bancária com 8% de desconto."
+    },
+    {
+      icon: <CalendarClock className="w-6 h-6" />,
+      title: "Parcelamento",
+      description: "Financiamento direto em até 24x."
     }
   ];
 
   const deliveryInfo = [
     {
       icon: <Clock className="w-6 h-6" />,
-      title: "Prazos Flexíveis",
-      description: "Projetos pequenos em 15 dias, médios em 30 dias e grandes em até 90 dias."
-    },
-    {
-      icon: <Calendar className="w-6 h-6" />,
-      title: "Entregas Parciais",
-      description: "Acompanhamento semanal com entregas parciais para validação."
+      title: "Entregas no Prazo",
+      description: "Sites em 15 dias, sistemas em 45 dias e projetos complexos em até 90 dias.",
+      detail: "Cronograma detalhado com marcos de entrega claros e definidos no início do projeto."
     },
     {
       icon: <Shield className="w-6 h-6" />,
-      title: "Garantia Total",
-      description: "90 dias de garantia para correções e ajustes após a entrega."
-    }
-  ];
-
-  const logos = [
-    {
-      name: "Mastercard",
-      image: "https://logodownload.org/wp-content/uploads/2014/07/mastercard-logo-7.png"
-    },
-    {
-      name: "Visa",
-      image: "https://logodownload.org/wp-content/uploads/2016/10/visa-logo-1.png"
-    },
-    {
-      name: "PIX",
-      image: "https://logodownload.org/wp-content/uploads/2020/11/pix-bc-logo-2048x2048.png"
-    },
-    {
-      name: "Banco do Brasil",
-      image: "https://logodownload.org/wp-content/uploads/2014/05/banco-do-brasil-logo-1.png"
-    },
-    {
-      name: "Itaú",
-      image: "https://logodownload.org/wp-content/uploads/2016/09/itau-logo-1.png"
+      title: "Garantia Completa",
+      description: "90 dias de garantia para todos os projetos com suporte técnico especializado.",
+      detail: "Contrato com SLA definido e tempo de resposta máximo de 4 horas em dias úteis."
     }
   ];
 
   return (
-    <section className="py-20 bg-secondary">
+    <section className="py-24 bg-gray-50 dark:bg-gray-900">
       <div className="container px-4 md:px-8 max-w-7xl mx-auto">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          viewport={{ once: true }}
-          className="text-center mb-16"
-        >
-          <h2 className="text-3xl md:text-4xl font-cashDisplay mb-4 text-t3rn-silver">
-            Formas de <span className="text-t3rn-gray-400">pagamento</span>
-          </h2>
-          <p className="text-lg text-t3rn-silver/70 max-w-3xl mx-auto">
-            Oferecemos diversas opções para facilitar seu investimento
-          </p>
-        </motion.div>
-        
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-          {paymentMethods.map((method, index) => (
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
+          {/* Payment Methods */}
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+          >
+            <div className="inline-flex items-center px-3 py-1 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 text-sm mb-4">
+              <span>Flexibilidade para você</span>
+            </div>
+            <h2 className="text-3xl font-bold mb-4 text-gray-900 dark:text-white">
+              Formas de <span className="text-gradient-gray">pagamento</span>
+            </h2>
+            <p className="text-lg text-gray-600 dark:text-gray-300 mb-10">
+              Oferecemos diversas opções para facilitar seu investimento, com transparência e segurança.
+            </p>
+            
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+              {paymentMethods.map((method, index) => (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                  viewport={{ once: true }}
+                  className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-elegant flex items-start gap-4"
+                >
+                  <div className="p-3 bg-gray-100 dark:bg-gray-700 rounded-lg text-gray-900 dark:text-white">
+                    {method.icon}
+                  </div>
+                  <div>
+                    <h3 className="font-semibold mb-1 text-gray-900 dark:text-white">{method.title}</h3>
+                    <p className="text-sm text-gray-600 dark:text-gray-300">{method.description}</p>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+            
+            {/* Payment Logos */}
             <motion.div
-              key={index}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
+              transition={{ duration: 0.6, delay: 0.4 }}
               viewport={{ once: true }}
-              className="bg-card rounded-xl border border-border p-6 text-center hover:border-t3rn-gray-600/50 hover:shadow-glow transition-all group"
+              className="mt-10"
             >
-              <div className="mx-auto w-16 h-16 rounded-full bg-muted flex items-center justify-center text-t3rn-gray-400 group-hover:text-t3rn-gray-300 transition-colors mb-4">
-                {method.icon}
+              <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">Aceitamos as principais bandeiras:</p>
+              <div className="flex flex-wrap justify-start items-center gap-6">
+                {[
+                  "https://cdn.worldvectorlogo.com/logos/visa-logo-800x286.svg",
+                  "https://cdn.worldvectorlogo.com/logos/mastercard-2.svg",
+                  "https://logospng.org/download/american-express/logo-american-express-1024.png",
+                  "https://cdn.worldvectorlogo.com/logos/pix-4.svg",
+                  "https://logodownload.org/wp-content/uploads/2017/04/bradesco-logo-1.png"
+                ].map((logo, index) => (
+                  <img 
+                    key={index}
+                    src={logo}
+                    alt={`Payment method ${index + 1}`}
+                    className="h-8 object-contain"
+                  />
+                ))}
               </div>
-              <h3 className="text-lg font-satoshi font-semibold mb-2 text-t3rn-silver">{method.title}</h3>
-              <p className="text-t3rn-silver/70 text-sm">{method.description}</p>
             </motion.div>
-          ))}
-        </div>
-        
-        {/* Logos de Pagamento */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.4 }}
-          viewport={{ once: true }}
-          className="mt-12"
-        >
-          <p className="text-center text-t3rn-silver/60 mb-6 text-sm">Aceitamos os principais meios de pagamento</p>
-          <div className="flex flex-wrap justify-center items-center gap-8">
-            {logos.map((logo, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                transition={{ duration: 0.3, delay: 0.1 * index }}
-                viewport={{ once: true }}
-                className="h-10 grayscale hover:grayscale-0 transition-all hover:scale-110"
-              >
-                <img src={logo.image} alt={logo.name} className="h-full w-auto object-contain" />
-              </motion.div>
-            ))}
-          </div>
-        </motion.div>
-        
-        {/* Prazos e Entregas */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.6 }}
-          viewport={{ once: true }}
-          className="mt-20"
-        >
-          <h3 className="text-2xl font-cashDisplay mb-8 text-center text-t3rn-silver">
-            Prazos e <span className="text-t3rn-gray-400">Entregas</span>
-          </h3>
+          </motion.div>
           
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {deliveryInfo.map((item, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                viewport={{ once: true }}
-                className="bg-card rounded-xl p-6 border border-border hover:border-t3rn-gray-600/50 hover:shadow-glow transition-all group"
-              >
-                <div className="flex items-center gap-4 mb-3">
-                  <div className="p-3 bg-muted rounded-lg text-t3rn-gray-400 group-hover:text-t3rn-gray-300 transition-colors">
-                    {item.icon}
+          {/* Delivery Info */}
+          <motion.div
+            initial={{ opacity: 0, x: 20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            viewport={{ once: true }}
+          >
+            <div className="inline-flex items-center px-3 py-1 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 text-sm mb-4">
+              <span>Compromisso com você</span>
+            </div>
+            <h2 className="text-3xl font-bold mb-4 text-gray-900 dark:text-white">
+              Prazos e <span className="text-gradient-gray">entregas</span>
+            </h2>
+            <p className="text-lg text-gray-600 dark:text-gray-300 mb-10">
+              Cumprimos rigorosamente nossos cronogramas e mantemos você informado em cada etapa.
+            </p>
+            
+            <div className="space-y-6">
+              {deliveryInfo.map((item, index) => (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                  viewport={{ once: true }}
+                  className="bg-white dark:bg-gray-800 rounded-xl shadow-elegant overflow-hidden"
+                >
+                  <div className="p-6">
+                    <div className="flex items-center gap-4 mb-4">
+                      <div className="p-3 bg-gray-100 dark:bg-gray-700 rounded-lg text-gray-900 dark:text-white">
+                        {item.icon}
+                      </div>
+                      <h3 className="font-semibold text-xl text-gray-900 dark:text-white">{item.title}</h3>
+                    </div>
+                    <p className="text-gray-600 dark:text-gray-300 mb-4">{item.description}</p>
+                    <p className="text-sm text-gray-500 dark:text-gray-400 italic">{item.detail}</p>
                   </div>
-                  <h4 className="font-satoshi font-medium text-lg text-t3rn-silver">{item.title}</h4>
-                </div>
-                <p className="text-t3rn-silver/70">{item.description}</p>
-              </motion.div>
-            ))}
-          </div>
-        </motion.div>
+                </motion.div>
+              ))}
+            </div>
+            
+            {/* Process Timeline */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.3 }}
+              viewport={{ once: true }}
+              className="mt-10 bg-white dark:bg-gray-800 p-6 rounded-xl shadow-elegant"
+            >
+              <h3 className="font-semibold text-xl mb-6 text-gray-900 dark:text-white">Ciclo de projeto</h3>
+              
+              <div className="space-y-6">
+                {[
+                  { step: 1, title: "Descoberta e Planejamento", duration: "1-2 semanas" },
+                  { step: 2, title: "Desenvolvimento", duration: "2-8 semanas" },
+                  { step: 3, title: "Testes e Revisões", duration: "1-2 semanas" },
+                  { step: 4, title: "Lançamento", duration: "1 semana" }
+                ].map((phase, index) => (
+                  <div key={index} className="flex items-start gap-4">
+                    <div className="flex-shrink-0 w-10 h-10 rounded-full bg-gray-100 dark:bg-gray-700 flex items-center justify-center text-gray-900 dark:text-white font-bold">
+                      {phase.step}
+                    </div>
+                    <div className="flex-grow border-b border-gray-200 dark:border-gray-700 pb-4">
+                      <div className="flex justify-between">
+                        <span className="font-medium text-gray-900 dark:text-white">{phase.title}</span>
+                        <span className="text-sm text-gray-500">{phase.duration}</span>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </motion.div>
+          </motion.div>
+        </div>
       </div>
     </section>
   );

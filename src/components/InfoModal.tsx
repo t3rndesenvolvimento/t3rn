@@ -1,82 +1,115 @@
 
 import { useState, useEffect } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
-import { X, Info } from 'lucide-react';
+import { X, Check } from 'lucide-react';
 
 export default function InfoModal() {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
   
   useEffect(() => {
-    // Exibe o modal após 5 segundos na página
+    // Show modal after 15 seconds
     const timer = setTimeout(() => {
-      setIsOpen(true);
-    }, 5000);
+      // Check if user hasn't seen it before
+      if (!localStorage.getItem('infoModalSeen')) {
+        setIsVisible(true);
+      }
+    }, 15000);
     
     return () => clearTimeout(timer);
   }, []);
   
-  // Fecha o modal e salva no localStorage para não exibir novamente na sessão
   const handleClose = () => {
-    setIsOpen(false);
-    localStorage.setItem('infoModalShown', 'true');
+    setIsVisible(false);
+    localStorage.setItem('infoModalSeen', 'true');
   };
   
+  const handleAccept = () => {
+    handleClose();
+    // Scroll to contact section
+    document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+  };
+
   return (
     <AnimatePresence>
-      {isOpen && (
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4"
-          onClick={handleClose}
-        >
+      {isVisible && (
+        <>
+          {/* Backdrop */}
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50"
+            onClick={handleClose}
+          />
+          
+          {/* Modal */}
           <motion.div
-            initial={{ scale: 0.9, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            exit={{ scale: 0.9, opacity: 0 }}
-            className="bg-card border border-t3rn-blue/30 rounded-custom p-6 max-w-md w-full shadow-glow"
-            onClick={(e) => e.stopPropagation()}
+            initial={{ opacity: 0, scale: 0.9, y: 20 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.9, y: 20 }}
+            transition={{ type: "spring", damping: 25, stiffness: 300 }}
+            className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 max-w-md w-full bg-white dark:bg-gray-800 rounded-2xl shadow-2xl z-50 overflow-hidden"
           >
-            <div className="flex justify-between items-center mb-4">
-              <div className="flex items-center gap-2 text-t3rn-blue">
-                <Info className="w-5 h-5" />
-                <h3 className="text-xl font-semibold text-t3rn-silver">Bem-vindo à T3RN</h3>
+            {/* Close button */}
+            <button
+              onClick={handleClose}
+              className="absolute top-4 right-4 p-1 rounded-full bg-gray-100 dark:bg-gray-700 text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 transition-colors"
+              aria-label="Fechar"
+            >
+              <X className="w-4 h-4" />
+            </button>
+            
+            {/* Hero image */}
+            <div className="h-40 bg-gradient-to-r from-gray-900 to-gray-700 flex items-center justify-center">
+              <img 
+                src="/lovable-uploads/de223857-ae3e-4b16-9f67-7bfd65cd3173.png"
+                alt="T3RN Desenvolvimento"
+                className="h-16"
+              />
+            </div>
+            
+            {/* Content */}
+            <div className="p-6">
+              <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">
+                Orçamento Gratuito e Sem Compromisso
+              </h3>
+              
+              <p className="text-gray-600 dark:text-gray-300 mb-6">
+                Quer saber quanto custaria seu projeto digital? Solicite agora um orçamento detalhado, totalmente gratuito e sem compromisso.
+              </p>
+              
+              <div className="space-y-3 mb-6">
+                {[
+                  "Resposta em até 24 horas",
+                  "Detalhamento completo de custos",
+                  "Sugestões de otimização para seu orçamento",
+                  "Consulta gratuita com nossos especialistas"
+                ].map((item, index) => (
+                  <div key={index} className="flex items-start gap-2">
+                    <Check className="w-5 h-5 text-gray-900 dark:text-white mt-0.5" />
+                    <span className="text-gray-700 dark:text-gray-300">{item}</span>
+                  </div>
+                ))}
               </div>
-              <button 
-                onClick={handleClose}
-                className="text-t3rn-silver/60 hover:text-t3rn-silver transition-colors"
-                aria-label="Fechar modal"
-              >
-                <X className="w-5 h-5" />
-              </button>
-            </div>
-            
-            <div className="mb-6 text-t3rn-silver/80">
-              <p className="mb-4">
-                Somos especializados em transformar ideias em soluções digitais inovadoras.
-                Desde sites modernos até sistemas complexos com IA.
-              </p>
-              <p>
-                Entre em contato pelo telefone <span className="text-t3rn-blue">(19) 99042072</span> e 
-                descubra como podemos ajudar seu negócio a crescer no mundo digital.
-              </p>
-            </div>
-            
-            <div className="flex justify-center">
-              <button
-                onClick={() => {
-                  handleClose();
-                  // Scroll para a seção de contato
-                  document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
-                }}
-                className="bg-t3rn-blue text-black font-medium px-6 py-2 rounded-custom hover:bg-t3rn-blue/90 transition-colors"
-              >
-                Fale Conosco
-              </button>
+              
+              <div className="flex flex-col sm:flex-row gap-3">
+                <button
+                  onClick={handleAccept}
+                  className="flex-1 px-5 py-3 bg-gray-900 dark:bg-white text-white dark:text-gray-900 font-medium rounded-lg hover:shadow-lg transition-shadow"
+                >
+                  Solicitar orçamento
+                </button>
+                <button
+                  onClick={handleClose}
+                  className="flex-1 px-5 py-3 bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-white font-medium rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors"
+                >
+                  Agora não
+                </button>
+              </div>
             </div>
           </motion.div>
-        </motion.div>
+        </>
       )}
     </AnimatePresence>
   );

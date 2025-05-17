@@ -1,225 +1,255 @@
 
-import { useState, useRef, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { Send, X, MessageCircle, Bot, User } from "lucide-react";
+import { useState, useEffect, useRef } from 'react';
+import { AnimatePresence, motion } from 'framer-motion';
+import { MessageSquare, Send, X } from 'lucide-react';
 
 type Message = {
   id: number;
-  text: string;
   isUser: boolean;
+  text: string;
 };
 
-// Respostas pré-definidas da IA para perguntas comuns sobre a empresa
-const aiResponses: Record<string, string> = {
-  default: "Olá! Sou o assistente virtual da T3RN Desenvolvimento. Como posso ajudar você hoje?",
-  sobre: "A T3RN Desenvolvimento é uma empresa especializada em soluções digitais inovadoras, focadas em performance, design e experiência do usuário. Transformamos ideias em realidade digital!",
-  servicos: "Oferecemos criação de sites, desenvolvimento de sistemas, integrações com WhatsApp e soluções com IA personalizada.",
-  contato: "Você pode entrar em contato conosco pelo telefone (19) 99042072 ou através do formulário em nosso site.",
-  projetos: "Trabalhamos com diversos projetos, desde e-commerce até sistemas complexos. Cada projeto é personalizado de acordo com as necessidades do cliente.",
-  pagamento: "Aceitamos diversas formas de pagamento, incluindo cartão de crédito, boleto bancário, PIX e transferência bancária.",
-  equipe: "Nossa equipe é composta por desenvolvedores, designers e especialistas em UX/UI apaixonados por tecnologia e inovação.",
-  prazos: "Nossos prazos de entrega variam de acordo com a complexidade do projeto. Geralmente, um site institucional leva de 15 a 30 dias, enquanto sistemas mais complexos podem levar de 30 a 90 dias.",
-  metodologia: "Trabalhamos com metodologias ágeis como Scrum, com entregas parciais para que o cliente possa acompanhar o desenvolvimento e sugerir ajustes durante o processo.",
-  tecnologias: "Utilizamos as tecnologias mais modernas do mercado, como React, Node.js, Next.js, TypeScript, Tailwind CSS e integrações com diversas APIs.",
-  beneficios: "Ao contratar nossos serviços, você terá um produto digital de alta qualidade, otimizado para SEO, responsivo, com excelente performance e totalmente personalizado para sua marca.",
-  suporte: "Oferecemos suporte técnico por 3 meses após a entrega do projeto, garantindo que tudo funcione perfeitamente. Após esse período, temos planos de manutenção mensal.",
-  garantia: "Todos os nossos projetos têm garantia de 90 dias para correção de bugs e problemas técnicos que possam surgir após a entrega.",
-  hospedagem: "Oferecemos serviços de hospedagem com alta performance e disponibilidade, além de configuração de domínios e e-mails profissionais.",
-  processo: "Nosso processo de trabalho envolve: 1) Briefing e levantamento de requisitos, 2) Planejamento e prototipação, 3) Desenvolvimento, 4) Testes e ajustes, 5) Lançamento e treinamento."
+type ChatResponse = {
+  [key: string]: string | string[];
 };
 
 export default function AIChat() {
   const [isOpen, setIsOpen] = useState(false);
-  const [message, setMessage] = useState("");
+  const [message, setMessage] = useState('');
   const [messages, setMessages] = useState<Message[]>([
-    { id: 1, text: aiResponses.default, isUser: false }
+    { id: 1, isUser: false, text: 'Olá! Sou o assistente virtual da T3RN. Como posso ajudar você hoje?' },
   ]);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
 
-  useEffect(() => {
-    if (messagesEndRef.current) {
-      messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
-    }
-  }, [messages]);
-
-  const handleSendMessage = () => {
-    if (message.trim() === "") return;
-    
-    // Adiciona a mensagem do usuário
-    const newUserMessage = { id: Date.now(), text: message, isUser: true };
-    setMessages((prev) => [...prev, newUserMessage]);
-    
-    // Processa a resposta da IA
-    setTimeout(() => {
-      let response = aiResponses.default;
-      
-      const lowerMsg = message.toLowerCase();
-      
-      if (lowerMsg.includes("sobre") || lowerMsg.includes("empresa") || lowerMsg.includes("t3rn")) {
-        response = aiResponses.sobre;
-      } else if (lowerMsg.includes("serviço") || lowerMsg.includes("oferecem")) {
-        response = aiResponses.servicos;
-      } else if (lowerMsg.includes("contato") || lowerMsg.includes("falar") || lowerMsg.includes("telefone")) {
-        response = aiResponses.contato;
-      } else if (lowerMsg.includes("projeto") || lowerMsg.includes("trabalho")) {
-        response = aiResponses.projetos;
-      } else if (lowerMsg.includes("pagamento") || lowerMsg.includes("pagar")) {
-        response = aiResponses.pagamento;
-      } else if (lowerMsg.includes("equipe") || lowerMsg.includes("time") || lowerMsg.includes("quem")) {
-        response = aiResponses.equipe;
-      } else if (lowerMsg.includes("prazo") || lowerMsg.includes("entrega") || lowerMsg.includes("tempo")) {
-        response = aiResponses.prazos;
-      } else if (lowerMsg.includes("metodologia") || lowerMsg.includes("trabalham") || lowerMsg.includes("método")) {
-        response = aiResponses.metodologia;
-      } else if (lowerMsg.includes("tecnologia") || lowerMsg.includes("tech") || lowerMsg.includes("ferramenta")) {
-        response = aiResponses.tecnologias;
-      } else if (lowerMsg.includes("benefício") || lowerMsg.includes("vantagem")) {
-        response = aiResponses.beneficios;
-      } else if (lowerMsg.includes("suporte") || lowerMsg.includes("ajuda") || lowerMsg.includes("assistência")) {
-        response = aiResponses.suporte;
-      } else if (lowerMsg.includes("garantia") || lowerMsg.includes("segurança")) {
-        response = aiResponses.garantia;
-      } else if (lowerMsg.includes("hospeda") || lowerMsg.includes("servidor") || lowerMsg.includes("domínio")) {
-        response = aiResponses.hospedagem;
-      } else if (lowerMsg.includes("processo") || lowerMsg.includes("etapa") || lowerMsg.includes("como funciona")) {
-        response = aiResponses.processo;
-      }
-      
-      const newAIMessage = { id: Date.now() + 1, text: response, isUser: false };
-      setMessages((prev) => [...prev, newAIMessage]);
-    }, 500);
-    
-    setMessage("");
+  const chatResponses: ChatResponse = {
+    "serviço": "Oferecemos desenvolvimento de sites, sistemas web, integrações com WhatsApp e soluções com IA. Nossos preços começam em R$ 3.800 para sites e R$ 8.900 para sistemas personalizados. Posso detalhar algum serviço específico?",
+    "preço": "Nossos preços variam conforme a complexidade do projeto. Sites a partir de R$ 3.800, sistemas a partir de R$ 8.900, integrações com WhatsApp a partir de R$ 2.500. Para um orçamento personalizado, informe mais detalhes do seu projeto.",
+    "orçamento": "Para solicitar um orçamento, você pode preencher o formulário na seção Contato do site, ou me contar mais sobre seu projeto agora mesmo para uma estimativa inicial. Qual tipo de solução você precisa?",
+    "prazo": "Trabalhamos com prazos de 15 dias para sites, até 45 dias para sistemas médios e até 90 dias para projetos complexos. Sempre cumprimos os prazos estabelecidos e mantemos você informado durante todo o processo.",
+    "pagamento": "Aceitamos pagamento via cartão de crédito (até 12x), PIX (10% de desconto), transferência bancária (8% de desconto) ou financiamento direto em até 24x. Qual forma seria melhor para você?",
+    "contato": "Você pode entrar em contato conosco pelo telefone (19) 99042-0772, pelo e-mail contato@t3rn.dev ou preenchendo o formulário na seção de Contato. Prefere que entremos em contato com você? Basta deixar seu número ou e-mail.",
+    "tecnologias": "Utilizamos tecnologias modernas como React, Node.js, TypeScript, MongoDB, Firebase, e outras conforme a necessidade de cada projeto. Para soluções com IA, trabalhamos com Python, TensorFlow e APIs OpenAI.",
+    "portfolio": "Desenvolvemos diversos projetos como e-commerces, sistemas de gestão, aplicativos mobile e plataformas de conteúdo. Você pode conferir alguns casos de sucesso na seção Projetos do site. Algum tipo específico de projeto que gostaria de ver?",
+    "equipe": "Nossa equipe é formada por desenvolvedores, designers e especialistas em UX/UI com mais de 5 anos de experiência. Trabalhamos de forma remota, o que nos permite atender clientes em todo o Brasil e exterior.",
+    "diferencial": "Nosso diferencial é a combinação de código limpo, design atraente e estratégia de conversão. Entregamos 100% dos projetos no prazo, oferecemos 90 dias de garantia e priorizamos a comunicação constante com nossos clientes."
   };
 
-  const suggestedQuestions = [
-    "Como funciona o processo de desenvolvimento?",
-    "Quais são os prazos de entrega?",
-    "Que tecnologias vocês utilizam?",
-    "Como funciona o pagamento?"
-  ];
+  const answers = {
+    default: "Não entendi completamente sua pergunta. Posso ajudar com informações sobre nossos serviços, preços, prazos de entrega, formas de pagamento ou processo de desenvolvimento. O que você gostaria de saber?",
+    
+    // Serviços
+    "site": chatResponses["serviço"],
+    "website": chatResponses["serviço"],
+    "loja": chatResponses["serviço"],
+    "serviço": chatResponses["serviço"],
+    "serviços": chatResponses["serviço"],
+    "fazem": chatResponses["serviço"],
+    "oferecem": chatResponses["serviço"],
+    "desenvolvimento": chatResponses["serviço"],
+    
+    // Preços
+    "preço": chatResponses["preço"],
+    "preços": chatResponses["preço"],
+    "valor": chatResponses["preço"],
+    "valores": chatResponses["preço"],
+    "custo": chatResponses["preço"],
+    "custos": chatResponses["preço"],
+    "investimento": chatResponses["preço"],
+    "quanto": chatResponses["preço"],
+    "custa": chatResponses["preço"],
+    
+    // Orçamento
+    "orçamento": chatResponses["orçamento"],
+    "proposta": chatResponses["orçamento"],
+    "contratar": chatResponses["orçamento"],
+    "contrato": chatResponses["orçamento"],
+    
+    // Prazos
+    "prazo": chatResponses["prazo"],
+    "prazos": chatResponses["prazo"],
+    "tempo": chatResponses["prazo"],
+    "entrega": chatResponses["prazo"],
+    "entregas": chatResponses["prazo"],
+    "quando": chatResponses["prazo"],
+    
+    // Formas de Pagamento
+    "pagamento": chatResponses["pagamento"],
+    "pagar": chatResponses["pagamento"],
+    "parcela": chatResponses["pagamento"],
+    "parcelar": chatResponses["pagamento"],
+    "desconto": chatResponses["pagamento"],
+    "pix": chatResponses["pagamento"],
+    "cartão": chatResponses["pagamento"],
+    
+    // Contato
+    "contato": chatResponses["contato"],
+    "telefone": chatResponses["contato"],
+    "email": chatResponses["contato"],
+    "whatsapp": chatResponses["contato"],
+    "falar": chatResponses["contato"],
+    "atendimento": chatResponses["contato"],
+    
+    // Tecnologias
+    "tecnologia": chatResponses["tecnologias"],
+    "tecnologias": chatResponses["tecnologias"],
+    "stack": chatResponses["tecnologias"],
+    "linguagem": chatResponses["tecnologias"],
+    "react": chatResponses["tecnologias"],
+    "node": chatResponses["tecnologias"],
+    
+    // Portfolio
+    "portfolio": chatResponses["portfolio"],
+    "portfólio": chatResponses["portfolio"],
+    "projetos": chatResponses["portfolio"],
+    "trabalhos": chatResponses["portfolio"],
+    "cases": chatResponses["portfolio"],
+    "case": chatResponses["portfolio"],
+    "cliente": chatResponses["portfolio"],
+    "clientes": chatResponses["portfolio"],
+    
+    // Equipe
+    "equipe": chatResponses["equipe"],
+    "time": chatResponses["equipe"],
+    "desenvolvedores": chatResponses["equipe"],
+    "funcionários": chatResponses["equipe"],
+    "pessoas": chatResponses["equipe"],
+    
+    // Diferencial
+    "diferencial": chatResponses["diferencial"],
+    "diferenciais": chatResponses["diferencial"],
+    "diferença": chatResponses["diferencial"],
+    "melhor": chatResponses["diferencial"],
+    "benefícios": chatResponses["diferencial"],
+    "vantagem": chatResponses["diferencial"],
+    "vantagens": chatResponses["diferencial"],
+    "garantia": chatResponses["diferencial"]
+  };
+
+  // Scroll to bottom when messages change
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages]);
+  
+  // Focus input when chat is opened
+  useEffect(() => {
+    if (isOpen && inputRef.current) {
+      inputRef.current.focus();
+    }
+  }, [isOpen]);
+
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    if (!message.trim()) return;
+    
+    // Add user message
+    const userMessage = { id: Date.now(), isUser: true, text: message };
+    setMessages((prevMessages) => [...prevMessages, userMessage]);
+    setMessage('');
+    
+    // Generate bot response after a short delay
+    setTimeout(() => {
+      const botResponse = generateResponse(message);
+      const botMessage = { id: Date.now(), isUser: false, text: botResponse };
+      setMessages((prevMessages) => [...prevMessages, botMessage]);
+    }, 600);
+  };
+
+  const generateResponse = (userInput: string): string => {
+    const input = userInput.toLowerCase();
+    
+    // Find a matching keyword in the answers object
+    for (const [keyword, response] of Object.entries(answers)) {
+      if (input.includes(keyword)) {
+        return response as string;
+      }
+    }
+    
+    // Return default response if no match found
+    return answers.default as string;
+  };
 
   return (
     <>
-      {/* Botão flutuante */}
-      <motion.button
-        initial={{ scale: 0 }}
-        animate={{ scale: 1 }}
-        whileHover={{ scale: 1.1 }}
-        className="fixed bottom-6 right-6 bg-t3rn-gray-600 text-black rounded-full p-4 shadow-lg z-50 group"
-        onClick={() => setIsOpen(true)}
-        aria-label="Abrir chat"
+      {/* Chat Button */}
+      <button
+        onClick={() => setIsOpen(!isOpen)}
+        className="fixed bottom-6 right-6 z-40 p-4 bg-gray-900 dark:bg-white text-white dark:text-gray-900 rounded-full shadow-lg hover:scale-110 transition-transform"
+        aria-label="Chat"
       >
-        <div className="absolute -top-1 -right-1 w-3 h-3">
-          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-t3rn-gray-400 opacity-75"></span>
-          <span className="relative inline-flex rounded-full h-3 w-3 bg-t3rn-gray-400"></span>
-        </div>
-        <MessageCircle className="w-6 h-6 text-black group-hover:text-t3rn-gray-900 transition-colors" />
-      </motion.button>
-
-      {/* Modal do chat */}
+        {isOpen ? <X /> : <MessageSquare />}
+      </button>
+      
+      {/* Chat Interface */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 20 }}
-            className="fixed bottom-24 right-6 w-80 md:w-96 bg-card border border-t3rn-gray-700/30 rounded-xl shadow-glow z-50 overflow-hidden"
+            initial={{ opacity: 0, y: 20, scale: 0.95 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 20, scale: 0.95 }}
+            transition={{ duration: 0.3 }}
+            className="fixed bottom-20 right-6 w-full max-w-sm z-40 bg-white dark:bg-gray-800 rounded-xl shadow-2xl overflow-hidden"
           >
-            {/* Cabeçalho */}
-            <div className="bg-gradient-to-r from-t3rn-gray-800 to-t3rn-gray-900 p-4 flex justify-between items-center">
-              <div className="flex items-center gap-2">
-                <Bot className="w-5 h-5 text-t3rn-gray-400" />
-                <h3 className="text-lg font-cashDisplay text-t3rn-silver">
-                  <span className="text-t3rn-gray-400">T3RN</span> Assistant
-                </h3>
+            {/* Header */}
+            <div className="p-4 bg-gray-900 dark:bg-gray-900 text-white">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center">
+                  <span className="font-medium">T3</span>
+                </div>
+                <div>
+                  <h3 className="font-medium">Assistente T3RN</h3>
+                  <p className="text-xs text-gray-300">Resposta em tempo real</p>
+                </div>
               </div>
-              <button
-                onClick={() => setIsOpen(false)}
-                className="text-t3rn-silver/60 hover:text-t3rn-silver"
-                aria-label="Fechar chat"
-              >
-                <X className="w-5 h-5" />
-              </button>
             </div>
             
-            {/* Área de mensagens */}
-            <div className="h-80 overflow-y-auto p-4 bg-t3rn-black">
+            {/* Messages */}
+            <div className="h-96 overflow-y-auto p-4 bg-gray-50 dark:bg-gray-900 space-y-4">
               {messages.map((msg) => (
-                <motion.div
+                <div
                   key={msg.id}
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  className={`mb-4 ${msg.isUser ? "text-right" : ""}`}
+                  className={`flex ${msg.isUser ? 'justify-end' : 'justify-start'}`}
                 >
-                  <div className={`flex items-center gap-2 ${msg.isUser ? "flex-row-reverse" : ""}`}>
-                    <div className={`w-6 h-6 rounded-full flex items-center justify-center ${msg.isUser ? "bg-t3rn-gray-600" : "bg-t3rn-gray-800"}`}>
-                      {msg.isUser ? (
-                        <User className="w-3.5 h-3.5 text-white" />
-                      ) : (
-                        <Bot className="w-3.5 h-3.5 text-t3rn-gray-400" />
-                      )}
-                    </div>
-                    <div
-                      className={`max-w-[80%] px-4 py-2 rounded-2xl ${
-                        msg.isUser
-                          ? "bg-t3rn-gray-600 text-white"
-                          : "bg-t3rn-gray-800 text-t3rn-silver"
-                      }`}
-                    >
-                      {msg.text}
-                    </div>
+                  <div
+                    className={`max-w-[80%] rounded-xl p-3 ${
+                      msg.isUser
+                        ? 'bg-gray-900 dark:bg-white text-white dark:text-gray-900'
+                        : 'bg-gray-200 dark:bg-gray-800 text-gray-900 dark:text-white'
+                    }`}
+                  >
+                    <p className="text-sm">{msg.text}</p>
                   </div>
-                </motion.div>
+                </div>
               ))}
               <div ref={messagesEndRef} />
             </div>
             
-            {/* Sugestões */}
-            {messages.length < 3 && (
-              <div className="p-2 bg-t3rn-gray-900 border-t border-t3rn-gray-800">
-                <p className="text-xs text-t3rn-gray-500 mb-2 pl-2">Perguntas sugeridas:</p>
-                <div className="flex flex-wrap gap-2">
-                  {suggestedQuestions.map((question, index) => (
-                    <button
-                      key={index}
-                      onClick={() => {
-                        setMessage(question);
-                        setTimeout(() => handleSendMessage(), 100);
-                      }}
-                      className="text-xs bg-t3rn-gray-800 text-t3rn-gray-400 px-3 py-1.5 rounded-full hover:bg-t3rn-gray-700 transition-colors"
-                    >
-                      {question}
-                    </button>
-                  ))}
-                </div>
-              </div>
-            )}
-
-            {/* Entrada de mensagem */}
-            <div className="p-3 border-t border-border bg-t3rn-gray-900">
-              <form
-                onSubmit={(e) => {
-                  e.preventDefault();
-                  handleSendMessage();
-                }}
-                className="flex gap-2"
+            {/* Input */}
+            <form onSubmit={handleSubmit} className="p-4 border-t border-gray-200 dark:border-gray-700 flex gap-2">
+              <input
+                ref={inputRef}
+                type="text"
+                value={message}
+                onChange={(e) => setMessage(e.target.value)}
+                placeholder="Digite sua pergunta..."
+                className="flex-1 px-4 py-2 bg-gray-100 dark:bg-gray-700 border-none rounded-lg outline-none text-gray-900 dark:text-white placeholder:text-gray-500 dark:placeholder:text-gray-400"
+              />
+              <button
+                type="submit"
+                className="px-4 py-2 bg-gray-900 dark:bg-white text-white dark:text-gray-900 rounded-lg hover:opacity-90 transition-opacity"
               >
-                <input
-                  type="text"
-                  value={message}
-                  onChange={(e) => setMessage(e.target.value)}
-                  placeholder="Pergunte sobre a T3RN..."
-                  className="flex-1 bg-t3rn-gray-800 p-2 rounded-md text-t3rn-silver focus:outline-none focus:ring-1 focus:ring-t3rn-gray-600"
-                />
-                <button
-                  type="submit"
-                  className="bg-t3rn-gray-600 p-2 rounded-md text-white hover:bg-t3rn-gray-500 transition-colors"
-                  aria-label="Enviar mensagem"
-                >
-                  <Send className="w-5 h-5" />
-                </button>
-              </form>
+                <Send className="w-5 h-5" />
+              </button>
+            </form>
+            
+            {/* Footer */}
+            <div className="px-4 py-2 bg-gray-100 dark:bg-gray-900 text-xs text-center text-gray-500 dark:text-gray-400">
+              Assistente baseado em respostas pré-configuradas
             </div>
           </motion.div>
         )}

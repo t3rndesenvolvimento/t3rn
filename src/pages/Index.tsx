@@ -1,5 +1,6 @@
 
 import { motion, useMotionValueEvent, useScroll } from "framer-motion";
+import { useState, useEffect } from "react";
 import Navbar from "@/components/Navbar";
 import HeroSection from "@/components/HeroSection";
 import ProjectsSection from "@/components/ProjectsSection";
@@ -13,7 +14,6 @@ import PaymentMethods from "@/components/PaymentMethods";
 import AIChat from "@/components/AIChat";
 import InfoModal from "@/components/InfoModal";
 import Notification from "@/components/Notification";
-import { useEffect, useState } from "react";
 
 const Index = () => {
   // Scroll progress indicator
@@ -48,17 +48,12 @@ const Index = () => {
   }, []);
 
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.5 }}
-      className="min-h-screen bg-t3rn-black text-t3rn-silver overflow-x-hidden"
-    >
+    <div className="min-h-screen bg-white dark:bg-gray-950 text-gray-900 dark:text-gray-200 overflow-x-hidden">
       <Navbar />
       
       {/* Scroll Progress Bar */}
       <motion.div 
-        className="fixed top-0 left-0 right-0 h-1 bg-t3rn-gray-600 origin-left z-50"
+        className="fixed top-0 left-0 right-0 h-1 bg-gray-900 dark:bg-gray-100 origin-left z-50"
         style={{ scaleX: scrollProgress }}
       />
       
@@ -66,8 +61,8 @@ const Index = () => {
         <HeroSection />
         <WorkProcess />
         <ProjectsSection />
-        <TestimonialsCarousel autoPlay={!isScrolling} />
         <ServicesSection />
+        <TestimonialsCarousel autoPlay={!isScrolling} />
         <PaymentMethods />
         <AboutSection />
         <ContactSection />
@@ -75,11 +70,11 @@ const Index = () => {
       
       <Footer />
       
-      {/* Componentes interativos */}
+      {/* Interactive components */}
       <AIChat />
       <InfoModal />
       <Notification delay={7000} />
-    </motion.div>
+    </div>
   );
 };
 
