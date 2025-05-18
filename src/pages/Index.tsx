@@ -15,8 +15,12 @@ import PaymentMethods from "@/components/PaymentMethods";
 import AIChat from "@/components/AIChat";
 import InfoModal from "@/components/InfoModal";
 import Notification from "@/components/Notification";
+import LoadingSpinner from "@/components/LoadingSpinner";
 
 const Index = () => {
+  // Loading state
+  const [isLoading, setIsLoading] = useState(true);
+  
   // Scroll progress indicator
   const { scrollYProgress } = useScroll();
   const [scrollProgress, setScrollProgress] = useState(0);
@@ -42,9 +46,15 @@ const Index = () => {
     
     window.addEventListener('scroll', handleScroll, { passive: true });
     
+    // Simula carregamento de recursos
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 2000);
+    
     return () => {
       window.removeEventListener('scroll', handleScroll);
       clearTimeout(timeout);
+      clearTimeout(timer);
     };
   }, []);
 
@@ -54,8 +64,13 @@ const Index = () => {
     visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
   };
 
+  // Se estiver carregando, mostra o spinner
+  if (isLoading) {
+    return <LoadingSpinner fullScreen />;
+  }
+
   return (
-    <div className="min-h-screen bg-white dark:bg-gray-950 text-gray-900 dark:text-gray-200 overflow-x-hidden">
+    <div className="min-h-screen bg-black dark:bg-gray-950 text-white dark:text-gray-200 overflow-x-hidden">
       <Helmet>
         <title>T3RN Desenvolvimento | Soluções Digitais Personalizadas</title>
         <meta name="description" content="Transformamos ideias em soluções digitais impactantes. Desenvolvimento web, aplicativos móveis e sistemas personalizados para seu negócio." />
@@ -74,7 +89,7 @@ const Index = () => {
       
       {/* Scroll Progress Bar */}
       <motion.div 
-        className="fixed top-0 left-0 right-0 h-1 bg-gray-900 dark:bg-gray-100 origin-left z-50"
+        className="fixed top-0 left-0 right-0 h-1 bg-gray-100 dark:bg-gray-100 origin-left z-50"
         style={{ scaleX: scrollProgress }}
       />
       
