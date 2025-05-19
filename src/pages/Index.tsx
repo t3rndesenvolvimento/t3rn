@@ -16,6 +16,7 @@ import AIChat from "@/components/AIChat";
 import InfoModal from "@/components/InfoModal";
 import Notification from "@/components/Notification";
 import LoadingSpinner from "@/components/LoadingSpinner";
+import CustomerQuestionnaire from "@/components/CustomerQuestionnaire";
 
 const Index = () => {
   // Loading state
@@ -46,12 +47,12 @@ const Index = () => {
     
     window.addEventListener('scroll', handleScroll, { passive: true });
     
-    // Simula carregamento de recursos
+    // Simulate loading of resources
     const timer = setTimeout(() => {
       setIsLoading(false);
     }, 2000);
     
-    // Força o tema dark
+    // Force dark theme
     document.documentElement.classList.add('dark');
     document.body.style.backgroundColor = 'black';
     document.body.style.color = 'white';
@@ -69,7 +70,7 @@ const Index = () => {
     visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
   };
 
-  // Se estiver carregando, mostra o spinner
+  // If loading, show the spinner
   if (isLoading) {
     return <LoadingSpinner fullScreen />;
   }
@@ -150,6 +151,15 @@ const Index = () => {
           variants={fadeInUpVariants}
         >
           <PaymentMethods />
+        </motion.div>
+        
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+          variants={fadeInUpVariants}
+        >
+          <CustomerQuestionnaire />
         </motion.div>
         
         <motion.div

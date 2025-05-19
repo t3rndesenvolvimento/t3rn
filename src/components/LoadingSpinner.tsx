@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 
 interface LoadingSpinnerProps {
@@ -7,6 +7,19 @@ interface LoadingSpinnerProps {
 }
 
 const LoadingSpinner = ({ fullScreen = false }: LoadingSpinnerProps) => {
+  const [letterIndex, setLetterIndex] = useState(0);
+  const companyName = "T3RN DESENVOLVIMENTO";
+  
+  useEffect(() => {
+    if (fullScreen) {
+      const interval = setInterval(() => {
+        setLetterIndex(prev => (prev + 1) % (companyName.length + 1));
+      }, 150);
+      
+      return () => clearInterval(interval);
+    }
+  }, [fullScreen]);
+  
   if (fullScreen) {
     return (
       <div className="fixed inset-0 z-50 flex items-center justify-center bg-black">
@@ -23,14 +36,18 @@ const LoadingSpinner = ({ fullScreen = false }: LoadingSpinnerProps) => {
             </div>
           </motion.div>
           <div className="loading-spinner"></div>
-          <motion.p 
+          <motion.div 
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.3, duration: 0.5 }}
-            className="mt-4 text-white"
+            className="mt-4 text-white h-8"
           >
-            Carregando...
-          </motion.p>
+            <div className="text-center font-bold text-xl">
+              {companyName.substring(0, letterIndex)}
+              <span className="animate-pulse">|</span>
+            </div>
+            <p className="mt-2 text-sm text-gray-400">Carregando sua experiência...</p>
+          </motion.div>
         </div>
       </div>
     );
