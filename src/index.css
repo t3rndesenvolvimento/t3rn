@@ -9,44 +9,44 @@
 
 @layer base {
   :root {
-    --background: 0 0% 0%;  /* Alterado para preto */
-    --foreground: 0 0% 100%; /* Alterado para branco */
+    --background: 0 0% 0%;  /* Preto */
+    --foreground: 0 0% 100%; /* Branco */
 
-    --card: 0 0% 5%;  /* Alterado para preto mais suave */
-    --card-foreground: 0 0% 100%; /* Alterado para branco */
+    --card: 0 0% 5%;  /* Preto mais suave */
+    --card-foreground: 0 0% 100%; /* Branco */
 
-    --popover: 0 0% 0%; /* Alterado para preto */
-    --popover-foreground: 0 0% 100%; /* Alterado para branco */
+    --popover: 0 0% 0%; /* Preto */
+    --popover-foreground: 0 0% 100%; /* Branco */
 
-    --primary: 0 0% 100%; /* Alterado para branco */
-    --primary-foreground: 0 0% 0%; /* Alterado para preto */
+    --primary: 0 0% 100%; /* Branco */
+    --primary-foreground: 0 0% 0%; /* Preto */
 
-    --secondary: 0 0% 10%; /* Alterado para cinza escuro */
-    --secondary-foreground: 0 0% 100%; /* Alterado para branco */
+    --secondary: 0 0% 10%; /* Cinza escuro */
+    --secondary-foreground: 0 0% 100%; /* Branco */
 
-    --muted: 0 0% 15%; /* Alterado para cinza escuro */
-    --muted-foreground: 0 0% 70%; /* Alterado para cinza claro */
+    --muted: 0 0% 15%; /* Cinza escuro */
+    --muted-foreground: 0 0% 70%; /* Cinza claro */
 
-    --accent: 0 0% 15%; /* Alterado para cinza escuro */
-    --accent-foreground: 0 0% 100%; /* Alterado para branco */
+    --accent: 0 0% 15%; /* Cinza escuro */
+    --accent-foreground: 0 0% 100%; /* Branco */
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
 
-    --border: 0 0% 20%; /* Alterado para cinza escuro */
-    --input: 0 0% 15%; /* Alterado para cinza escuro */
-    --ring: 0 0% 70%; /* Alterado para cinza claro */
+    --border: 0 0% 20%; /* Cinza escuro */
+    --input: 0 0% 15%; /* Cinza escuro */
+    --ring: 0 0% 70%; /* Cinza claro */
 
     --radius: 1rem;
 
-    --sidebar-background: 0 0% 5%; /* Alterado para preto suave */
-    --sidebar-foreground: 0 0% 100%; /* Alterado para branco */
-    --sidebar-primary: 0 0% 100%; /* Alterado para branco */
-    --sidebar-primary-foreground: 0 0% 0%; /* Alterado para preto */
-    --sidebar-accent: 0 0% 15%; /* Alterado para cinza escuro */
-    --sidebar-accent-foreground: 0 0% 100%; /* Alterado para branco */
-    --sidebar-border: 0 0% 20%; /* Alterado para cinza escuro */
-    --sidebar-ring: 0 0% 70%; /* Alterado para cinza claro */
+    --sidebar-background: 0 0% 5%; /* Preto suave */
+    --sidebar-foreground: 0 0% 100%; /* Branco */
+    --sidebar-primary: 0 0% 100%; /* Branco */
+    --sidebar-primary-foreground: 0 0% 0%; /* Preto */
+    --sidebar-accent: 0 0% 15%; /* Cinza escuro */
+    --sidebar-accent-foreground: 0 0% 100%; /* Branco */
+    --sidebar-border: 0 0% 20%; /* Cinza escuro */
+    --sidebar-ring: 0 0% 70%; /* Cinza claro */
   }
 
   .dark {
@@ -83,13 +83,13 @@
     @apply border-border;
   }
 
-  body {
-    @apply bg-background text-foreground font-satoshi;
+  html, body {
+    @apply bg-black text-white font-satoshi;
     scroll-behavior: smooth;
   }
-  
+
   ::selection {
-    @apply bg-gray-700/40 text-gray-100; /* Alterado para combinar com tema escuro */
+    @apply bg-gray-700/40 text-gray-100;
   }
 
   .code-text {

@@ -27,16 +27,17 @@ export const saveContactMessage = async (formData: {
           return;
         }
 
-        // Salva dados no localStorage como exemplo
+        // Salva dados no localStorage
         const storedMessages = localStorage.getItem('contactMessages');
         const messages = storedMessages ? JSON.parse(storedMessages) : [];
         
-        messages.push({
+        const newMessage = {
           ...formData,
           id: Date.now(),
           date: new Date().toISOString()
-        });
+        };
         
+        messages.push(newMessage);
         localStorage.setItem('contactMessages', JSON.stringify(messages));
         
         resolve({ 
@@ -63,7 +64,7 @@ export const saveNewsletter = async (email: string) => {
           return;
         }
 
-        // Salva no localStorage como exemplo
+        // Salva no localStorage
         const storedEmails = localStorage.getItem('newsletterEmails');
         const emails = storedEmails ? JSON.parse(storedEmails) : [];
         
@@ -85,6 +86,49 @@ export const saveNewsletter = async (email: string) => {
     console.error("Erro ao salvar newsletter:", error);
     return { success: false, message: "Ocorreu um erro ao processar sua inscrição. Tente novamente." };
   }
+};
+
+// Limpar todos os dados salvos
+export const clearAllData = () => {
+  localStorage.removeItem('contactMessages');
+  localStorage.removeItem('newsletterEmails');
+  return { success: true, message: "Todos os dados foram removidos com sucesso." };
+};
+
+// Obter todas as mensagens salvas
+export const getAllMessages = () => {
+  const storedMessages = localStorage.getItem('contactMessages');
+  return storedMessages ? JSON.parse(storedMessages) : [];
+};
+
+// Obter todos os emails da newsletter
+export const getAllNewsletterEmails = () => {
+  const storedEmails = localStorage.getItem('newsletterEmails');
+  return storedEmails ? JSON.parse(storedEmails) : [];
+};
+
+// Deletar uma mensagem específica
+export const deleteMessage = (id: number) => {
+  const storedMessages = localStorage.getItem('contactMessages');
+  if (!storedMessages) return { success: false, message: "Nenhuma mensagem encontrada." };
+  
+  const messages = JSON.parse(storedMessages);
+  const updatedMessages = messages.filter((msg: any) => msg.id !== id);
+  
+  localStorage.setItem('contactMessages', JSON.stringify(updatedMessages));
+  return { success: true, message: "Mensagem deletada com sucesso." };
+};
+
+// Deletar um email específico da newsletter
+export const deleteNewsletterEmail = (email: string) => {
+  const storedEmails = localStorage.getItem('newsletterEmails');
+  if (!storedEmails) return { success: false, message: "Nenhum email encontrado." };
+  
+  const emails = JSON.parse(storedEmails);
+  const updatedEmails = emails.filter((e: string) => e !== email);
+  
+  localStorage.setItem('newsletterEmails', JSON.stringify(updatedEmails));
+  return { success: true, message: "Email removido com sucesso." };
 };
 
 // Validador simples de email

@@ -51,6 +51,11 @@ const Index = () => {
       setIsLoading(false);
     }, 2000);
     
+    // Força o tema dark
+    document.documentElement.classList.add('dark');
+    document.body.style.backgroundColor = 'black';
+    document.body.style.color = 'white';
+    
     return () => {
       window.removeEventListener('scroll', handleScroll);
       clearTimeout(timeout);
@@ -70,7 +75,7 @@ const Index = () => {
   }
 
   return (
-    <div className="min-h-screen bg-black dark:bg-gray-950 text-white dark:text-gray-200 overflow-x-hidden">
+    <div className="min-h-screen bg-black text-white overflow-x-hidden">
       <Helmet>
         <title>T3RN Desenvolvimento | Soluções Digitais Personalizadas</title>
         <meta name="description" content="Transformamos ideias em soluções digitais impactantes. Desenvolvimento web, aplicativos móveis e sistemas personalizados para seu negócio." />
@@ -89,7 +94,7 @@ const Index = () => {
       
       {/* Scroll Progress Bar */}
       <motion.div 
-        className="fixed top-0 left-0 right-0 h-1 bg-gray-100 dark:bg-gray-100 origin-left z-50"
+        className="fixed top-0 left-0 right-0 h-1 bg-gray-100 origin-left z-50"
         style={{ scaleX: scrollProgress }}
       />
       
