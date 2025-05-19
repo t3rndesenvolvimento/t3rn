@@ -11,7 +11,6 @@ import ContactSection from "@/components/ContactSection";
 import Footer from "@/components/Footer";
 import TestimonialsCarousel from "@/components/TestimonialsCarousel";
 import WorkProcess from "@/components/WorkProcess";
-import PaymentMethods from "@/components/PaymentMethods";
 import AIChat from "@/components/AIChat";
 import InfoModal from "@/components/InfoModal";
 import Notification from "@/components/Notification";
@@ -142,15 +141,6 @@ const Index = () => {
           variants={fadeInUpVariants}
         >
           <TestimonialsCarousel autoPlay={!isScrolling} />
-        </motion.div>
-        
-        <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
-          variants={fadeInUpVariants}
-        >
-          <PaymentMethods />
         </motion.div>
         
         <motion.div

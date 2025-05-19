@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { Menu, X, Phone, Mail } from "lucide-react";
+import { Link } from "react-router-dom";
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -10,12 +11,14 @@ export default function Navbar() {
   
   // Menu navigation items
   const navItems = [
-    { name: "Início", href: "#home" },
-    { name: "Projetos", href: "#projects" },
-    { name: "Serviços", href: "#services" },
-    { name: "Depoimentos", href: "#testimonials" },
-    { name: "Questionário", href: "#questionnaire" },
-    { name: "Contato", href: "#contact" },
+    { name: "Início", href: "/" },
+    { name: "Projetos", href: "/#projects" },
+    { name: "Serviços", href: "/#services" },
+    { name: "Depoimentos", href: "/#testimonials" },
+    { name: "Diferenciais", href: "/diferenciais" },
+    { name: "Orçamento", href: "/orcamento" },
+    { name: "Suporte", href: "/suporte" },
+    { name: "Contato", href: "/#contact" },
   ];
   
   useEffect(() => {
@@ -45,7 +48,7 @@ export default function Navbar() {
     >
       <div className="container mx-auto flex items-center justify-between">
         {/* Logo */}
-        <a href="#home" className="z-50">
+        <Link to="/" className="z-50">
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -57,7 +60,7 @@ export default function Navbar() {
             </div>
             <span className="font-bold mr-1">T3RN</span> <span className="text-gray-400 text-lg">Desenvolvimento</span>
           </motion.div>
-        </a>
+        </Link>
         
         {/* Contact Quick Links - Desktop */}
         <div className="hidden md:flex items-center space-x-6 absolute left-1/2 transform -translate-x-1/2">
@@ -74,17 +77,29 @@ export default function Navbar() {
         {/* Desktop Navigation */}
         <nav className="hidden md:flex">
           <div className="bg-gray-900 border border-gray-800 rounded-full px-1 py-1 flex items-center">
-            {navItems.map((item, index) => (
-              <motion.a
+            {navItems.slice(0, 6).map((item, index) => (
+              <motion.div
                 key={item.name}
-                href={item.href}
-                className="px-4 py-2 text-sm text-gray-300 hover:text-white transition-colors rounded-full hover:bg-gray-800"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.1 * index, duration: 0.5 }}
               >
-                {item.name}
-              </motion.a>
+                {item.href.startsWith("/") && !item.href.includes("#") ? (
+                  <Link 
+                    to={item.href} 
+                    className="px-4 py-2 text-sm text-gray-300 hover:text-white transition-colors rounded-full hover:bg-gray-800"
+                  >
+                    {item.name}
+                  </Link>
+                ) : (
+                  <a
+                    href={item.href}
+                    className="px-4 py-2 text-sm text-gray-300 hover:text-white transition-colors rounded-full hover:bg-gray-800"
+                  >
+                    {item.name}
+                  </a>
+                )}
+              </motion.div>
             ))}
           </div>
         </nav>
@@ -128,14 +143,25 @@ export default function Navbar() {
             </div>
             
             {navItems.map((item) => (
-              <a
-                key={item.name}
-                href={item.href}
-                className="py-3 px-4 text-gray-300 hover:text-white hover:bg-gray-800 rounded-lg transition-colors"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                {item.name}
-              </a>
+              <div key={item.name}>
+                {item.href.startsWith("/") && !item.href.includes("#") ? (
+                  <Link
+                    to={item.href}
+                    className="py-3 px-4 text-gray-300 hover:text-white hover:bg-gray-800 rounded-lg transition-colors block"
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    {item.name}
+                  </Link>
+                ) : (
+                  <a
+                    href={item.href}
+                    className="py-3 px-4 text-gray-300 hover:text-white hover:bg-gray-800 rounded-lg transition-colors block"
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    {item.name}
+                  </a>
+                )}
+              </div>
             ))}
           </div>
         </motion.div>
