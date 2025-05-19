@@ -20,7 +20,7 @@ const messageStats = [
 
 const Xinverzao = () => {
   return (
-    <div className="min-h-screen bg-black text-white flex flex-col">
+    <div className="min-h-screen bg-black text-white flex flex-col bg-grid-pattern">
       <Helmet>
         <title>T3RN Desenvolvimento | Dashboard</title>
         <meta name="robots" content="noindex, nofollow" />

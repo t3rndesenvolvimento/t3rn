@@ -75,7 +75,7 @@ const Index = () => {
   }
 
   return (
-    <div className="min-h-screen bg-black text-white overflow-x-hidden">
+    <div className="min-h-screen bg-black text-white overflow-x-hidden bg-grid-pattern">
       <Helmet>
         <title>T3RN Desenvolvimento | Soluções Digitais Personalizadas</title>
         <meta name="description" content="Transformamos ideias em soluções digitais impactantes. Desenvolvimento web, aplicativos móveis e sistemas personalizados para seu negócio." />
