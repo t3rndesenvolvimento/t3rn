@@ -1,7 +1,7 @@
-
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { ExternalLink, CheckCircle } from "lucide-react";
+import DeviceMockupCarousel from "./DeviceMockupCarousel";
 
 interface Project {
   id: number;
@@ -71,6 +71,13 @@ export default function ProjectsSection() {
     }
   ];
   
+  // Device mockup carousel images
+  const mockupImages = projects.map(project => ({
+    id: project.id,
+    url: project.image,
+    title: project.title
+  }));
+  
   const filters = [
     { name: "Todos", value: "todos" },
     { name: "React", value: "react" },
@@ -103,11 +110,22 @@ export default function ProjectsSection() {
           </p>
         </motion.div>
         
-        {/* Filters */}
+        {/* Device Mockups Carousel */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
+          viewport={{ once: true }}
+          className="mb-20"
+        >
+          <DeviceMockupCarousel images={mockupImages} />
+        </motion.div>
+        
+        {/* Filters */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.4 }}
           viewport={{ once: true }}
           className="flex flex-wrap gap-3 mb-12"
         >
@@ -133,7 +151,7 @@ export default function ProjectsSection() {
               key={project.id}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: index * 0.1 + 0.3 }}
+              transition={{ duration: 0.6, delay: index * 0.1 + 0.5 }}
               viewport={{ once: true }}
               className="bg-white dark:bg-gray-800 rounded-2xl overflow-hidden shadow-elegant group card-highlight"
             >
