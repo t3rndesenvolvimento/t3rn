@@ -35,7 +35,7 @@ const DeviceMockupCarousel: React.FC<DeviceMockupCarouselProps> = ({ images, cla
             <div className="absolute inset-0 overflow-hidden rounded-md">
               <Carousel 
                 opts={{ loop: true }}
-                onSelect={(index) => setActiveIndex(index)}
+                onSelect={(api) => setActiveIndex(api.selectedScrollSnap())}
                 className="w-full h-full"
               >
                 <CarouselContent className="h-full">
