@@ -11,6 +11,7 @@ import {
 } from "@/components/ui/carousel";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { cn } from "@/lib/utils";
+import useEmblaCarousel from "embla-carousel-react";
 
 interface DeviceMockupCarouselProps {
   images: { id: number; url: string; title: string }[];
@@ -35,8 +36,12 @@ const DeviceMockupCarousel: React.FC<DeviceMockupCarouselProps> = ({ images, cla
             <div className="absolute inset-0 overflow-hidden rounded-md">
               <Carousel 
                 opts={{ loop: true }}
-                onSelect={(api) => setActiveIndex(api.selectedScrollSnap())}
                 className="w-full h-full"
+                setApi={(api) => {
+                  api?.on("select", () => {
+                    setActiveIndex(api.selectedScrollSnap());
+                  });
+                }}
               >
                 <CarouselContent className="h-full">
                   {images.map((image, index) => (
