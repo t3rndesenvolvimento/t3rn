@@ -1,4 +1,3 @@
-
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Roboto+Mono:wght@400;500&display=swap');
 @import url('https://api.fontshare.com/v2/css?f[]=satoshi@700,500,400&display=swap');
 @import url('https://fonts.cdnfonts.com/css/cash-display');
@@ -165,6 +164,33 @@
   .bg-gradient-animation {
     @apply bg-gradient-to-r from-t3rn-highlight via-t3rn-blue to-t3rn-orange bg-[length:400%_100%] animate-gradient-x;
   }
+
+  .shield-clip-path {
+    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+  }
+
+  .shimmer-loader {
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .shimmer-loader::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    transform: translateX(-100%);
+    background-image: linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0) 0,
+      rgba(255, 255, 255, 0.1) 20%,
+      rgba(255, 255, 255, 0.2) 60%,
+      rgba(255, 255, 255, 0)
+    );
+    animation: shimmer 2s infinite;
+  }
 }
 
 @keyframes float {
@@ -182,19 +208,13 @@
   to { opacity: 1; transform: translateY(0); }
 }
 
-/* Adicionando animação de loading */
-@keyframes spinner {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+@keyframes shimmer {
+  100% { transform: translateX(100%); }
 }
 
+/* Removing old spinner styles that are no longer needed */
 .loading-spinner {
-  border: 4px solid rgba(255, 255, 255, 0.1);
-  border-radius: 50%;
-  border-top: 4px solid rgba(139, 92, 246, 0.8); /* Purple highlight color */
-  width: 40px;
-  height: 40px;
-  animation: spinner 1s linear infinite;
+  @apply relative;
 }
 
 .page-loader {
