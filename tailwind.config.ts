@@ -1,4 +1,3 @@
-
 import type { Config } from "tailwindcss";
 
 export default {
@@ -76,7 +75,10 @@ export default {
 						700: "#606063",
 						800: "#404043",
 						900: "#202023",
-					}
+					},
+					highlight: "#8B5CF6", // Adding purple highlight color
+					orange: "#F97316", // Adding orange accent
+					blue: "#0EA5E9", // Adding blue accent
 				}
 			},
 			borderRadius: {
@@ -117,7 +119,17 @@ export default {
 				},
 				'ping': {
 					'75%, 100%': { transform: 'scale(2)', opacity: '0' },
-				}
+				},
+				'gradient-x': {
+					'0%': { backgroundPosition: '0% 50%' },
+					'50%': { backgroundPosition: '100% 50%' },
+					'100%': { backgroundPosition: '0% 50%' },
+				},
+				'shimmer': {
+					'100%': {
+						transform: 'translateX(100%)',
+					},
+				},
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
@@ -128,13 +140,19 @@ export default {
 				'pulse-glow': 'pulse-glow 2s ease-in-out infinite',
 				'float': 'float 6s ease-in-out infinite',
 				'ping': 'ping 1s cubic-bezier(0, 0, 0.2, 1) infinite',
+				'gradient-x': 'gradient-x 15s ease infinite',
+				'shimmer': 'shimmer 1.5s infinite',
 			},
 			fontFamily: {
 				satoshi: ["Satoshi", "sans-serif"],
 				cashDisplay: ["Cash Display", "serif"],
 				montserrat: ["Montserrat", "sans-serif"],
 				roboto: ["Roboto Mono", "monospace"],
-			}
+			},
+			backgroundImage: {
+				'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+				'gradient-conic': 'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
+			},
 		}
 	},
 	plugins: [require("tailwindcss-animate")],

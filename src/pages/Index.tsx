@@ -94,7 +94,7 @@ const Index = () => {
       
       {/* Scroll Progress Bar */}
       <motion.div 
-        className="fixed top-0 left-0 right-0 h-1 bg-gray-100 origin-left z-50"
+        className="fixed top-0 left-0 right-0 h-1 bg-gradient-animation origin-left z-50"
         style={{ scaleX: scrollProgress }}
       />
       
@@ -148,6 +148,7 @@ const Index = () => {
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
           variants={fadeInUpVariants}
+          className="highlight-glow"
         >
           <CustomerQuestionnaire />
         </motion.div>

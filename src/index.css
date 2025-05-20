@@ -89,7 +89,7 @@
   }
 
   ::selection {
-    @apply bg-gray-700/40 text-gray-100;
+    @apply bg-t3rn-highlight/40 text-gray-100;
   }
 
   .code-text {
@@ -106,6 +106,18 @@
     @apply bg-gradient-to-r from-gray-500 to-gray-700 bg-clip-text text-transparent;
   }
   
+  .text-gradient-purple {
+    @apply bg-gradient-to-r from-t3rn-highlight to-purple-700 bg-clip-text text-transparent;
+  }
+
+  .text-gradient-blue {
+    @apply bg-gradient-to-r from-t3rn-blue to-blue-700 bg-clip-text text-transparent;
+  }
+
+  .text-gradient-orange {
+    @apply bg-gradient-to-r from-t3rn-orange to-orange-700 bg-clip-text text-transparent;
+  }
+  
   .shadow-elegant {
     box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
   }
@@ -115,6 +127,22 @@
     background-image: 
       linear-gradient(to right, rgba(180, 180, 180, 0.05) 1px, transparent 1px),
       linear-gradient(to bottom, rgba(180, 180, 180, 0.05) 1px, transparent 1px);
+  }
+
+  .button-gradient {
+    @apply bg-gradient-to-r from-t3rn-highlight to-purple-700 hover:from-purple-700 hover:to-t3rn-highlight transition-all duration-300;
+  }
+
+  .button-gradient-orange {
+    @apply bg-gradient-to-r from-t3rn-orange to-orange-700 hover:from-orange-700 hover:to-t3rn-orange transition-all duration-300;
+  }
+
+  .button-gradient-blue {
+    @apply bg-gradient-to-r from-t3rn-blue to-blue-700 hover:from-blue-700 hover:to-t3rn-blue transition-all duration-300;
+  }
+
+  .card-highlight {
+    @apply border-t-2 border-t3rn-highlight;
   }
 
   .slide-indicator {
@@ -132,6 +160,10 @@
   
   .animate-fade-up {
     animation: fade-up 0.6s ease-out forwards;
+  }
+
+  .bg-gradient-animation {
+    @apply bg-gradient-to-r from-t3rn-highlight via-t3rn-blue to-t3rn-orange bg-[length:400%_100%] animate-gradient-x;
   }
 }
 
@@ -159,7 +191,7 @@
 .loading-spinner {
   border: 4px solid rgba(255, 255, 255, 0.1);
   border-radius: 50%;
-  border-top: 4px solid rgba(255, 255, 255, 0.8);
+  border-top: 4px solid rgba(139, 92, 246, 0.8); /* Purple highlight color */
   width: 40px;
   height: 40px;
   animation: spinner 1s linear infinite;
