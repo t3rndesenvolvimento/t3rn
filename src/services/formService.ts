@@ -30,11 +30,13 @@ export async function saveContactMessage(formData: {
 export async function saveNewsletter(email: string) {
   try {
     // Check if email already exists in the newsletter_subscribers table
-    const { data: existingSubscriber } = await supabase
+    const { data: existingSubscriber, error: queryError } = await supabase
       .from('newsletter_subscribers')
       .select('*')
       .eq('email', email)
-      .single();
+      .maybeSingle();
+    
+    if (queryError) throw queryError;
     
     if (existingSubscriber) {
       return {
@@ -46,7 +48,7 @@ export async function saveNewsletter(email: string) {
     // Save new subscriber
     const { data, error } = await supabase
       .from('newsletter_subscribers')
-      .insert([{ email }])
+      .insert({ email })
       .select();
       
     if (error) {
