@@ -1,13 +1,18 @@
 
-import { supabase, fetchDataFromApi } from '@/integrations/supabase/client';
+import { supabase } from '@/integrations/supabase/client';
 
-// Example function to fetch data from a table (replace with your actual tables when created)
+// Function to fetch data from example_table
 export async function fetchExampleData() {
-  return fetchDataFromApi(() => 
-    supabase
-      .from('example_table') // Replace with your actual table name when created
-      .select('*')
-  );
+  const { data, error } = await supabase
+    .from('example_table')
+    .select('*');
+  
+  if (error) {
+    console.error('Error fetching data:', error);
+    throw new Error(error.message);
+  }
+  
+  return data;
 }
 
 // Function to create a new contact message
@@ -18,7 +23,7 @@ export async function createContactMessage(data: {
   message: string;
 }) {
   const { data: result, error } = await supabase
-    .from('contact_messages') // Replace with your actual table name when created
+    .from('contact_messages')
     .insert([data])
     .select();
 
