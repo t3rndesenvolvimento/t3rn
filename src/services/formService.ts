@@ -1,5 +1,6 @@
 
 import { createContactMessage } from './apiService';
+import { supabase } from '@/integrations/supabase/client';
 
 // Function to save contact message
 export async function saveContactMessage(formData: {
@@ -20,6 +21,48 @@ export async function saveContactMessage(formData: {
     return {
       success: false,
       message: error.message || 'Ocorreu um erro ao enviar sua mensagem.',
+      error
+    };
+  }
+}
+
+// Function to save newsletter subscription
+export async function saveNewsletter(email: string) {
+  try {
+    // Check if email already exists in the newsletter_subscribers table
+    const { data: existingSubscriber } = await supabase
+      .from('newsletter_subscribers')
+      .select('*')
+      .eq('email', email)
+      .single();
+    
+    if (existingSubscriber) {
+      return {
+        success: false,
+        message: 'Este e-mail já está inscrito em nossa newsletter.'
+      };
+    }
+    
+    // Save new subscriber
+    const { data, error } = await supabase
+      .from('newsletter_subscribers')
+      .insert([{ email }])
+      .select();
+      
+    if (error) {
+      throw error;
+    }
+    
+    return {
+      success: true,
+      message: 'Inscrição realizada com sucesso! Obrigado por se inscrever.',
+      data
+    };
+  } catch (error: any) {
+    console.error('Error saving newsletter subscription:', error);
+    return {
+      success: false,
+      message: error.message || 'Ocorreu um erro ao processar sua inscrição.',
       error
     };
   }
