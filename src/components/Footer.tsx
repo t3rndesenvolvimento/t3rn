@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { toast } from '@/hooks/use-toast';
 import { Input } from '@/components/ui/input';
@@ -16,7 +15,9 @@ const Footer = () => {
     setIsSubmitting(true);
     
     try {
+      console.log('Submitting newsletter with email:', email);
       const result = await saveNewsletter(email);
+      console.log('Newsletter subscription result:', result);
       
       if (result.success) {
         toast({
@@ -32,12 +33,12 @@ const Footer = () => {
         });
       }
     } catch (error) {
+      console.error("Erro na newsletter:", error);
       toast({
         variant: "destructive",
         title: "Erro",
         description: "Não foi possível processar sua inscrição. Tente novamente mais tarde.",
       });
-      console.error("Erro na newsletter:", error);
     } finally {
       setIsSubmitting(false);
     }

@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { toast } from "@/hooks/use-toast";
@@ -27,7 +26,9 @@ const ContactSection = () => {
     setIsSubmitting(true);
 
     try {
+      console.log('Submitting contact form with data:', formData);
       const result = await saveContactMessage(formData);
+      console.log('Contact form submission result:', result);
       
       if (result.success) {
         toast({
@@ -50,12 +51,12 @@ const ContactSection = () => {
         });
       }
     } catch (error) {
+      console.error("Erro no formulário de contato:", error);
       toast({
         variant: "destructive",
         title: "Erro",
         description: "Ocorreu um erro ao enviar sua mensagem. Tente novamente mais tarde.",
       });
-      console.error("Erro no formulário de contato:", error);
     } finally {
       setIsSubmitting(false);
     }
