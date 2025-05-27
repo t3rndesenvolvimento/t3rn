@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -76,9 +77,14 @@ export default {
 						800: "#404043",
 						900: "#202023",
 					},
-					highlight: "#8B5CF6", // Adding purple highlight color
-					orange: "#F97316", // Adding orange accent
-					blue: "#0EA5E9", // Adding blue accent
+					gold: {
+						400: "#FBBF24",
+						500: "#F59E0B", 
+						600: "#D97706",
+						700: "#B45309",
+					},
+					orange: "#F97316",
+					blue: "#0EA5E9",
 				}
 			},
 			borderRadius: {

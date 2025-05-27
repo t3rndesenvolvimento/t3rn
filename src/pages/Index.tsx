@@ -49,7 +49,7 @@ const Index = () => {
     // Simulate loading of resources
     const timer = setTimeout(() => {
       setIsLoading(false);
-    }, 2000);
+    }, 3000);
     
     // Force dark theme
     document.documentElement.classList.add('dark');
@@ -148,8 +148,9 @@ const Index = () => {
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
           variants={fadeInUpVariants}
-          className="highlight-glow"
+          className="relative"
         >
+          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-yellow-400/5 to-transparent pointer-events-none"></div>
           <CustomerQuestionnaire />
         </motion.div>
         

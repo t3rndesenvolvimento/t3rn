@@ -37,46 +37,52 @@ export default function Navbar() {
   return (
     <motion.header 
       className={cn(
-        "fixed top-0 w-full z-50 transition-all duration-300 py-4 px-6 lg:px-10",
+        "fixed top-0 w-full z-50 transition-all duration-300 py-3 px-4 lg:px-6 xl:px-10",
         scrolled 
-          ? "bg-black bg-opacity-90 backdrop-blur-sm border-b border-gray-800" 
+          ? "bg-black bg-opacity-95 backdrop-blur-md border-b border-yellow-400/20" 
           : "bg-transparent"
       )}
       initial={{ opacity: 0, y: -20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
     >
-      <div className="container mx-auto flex items-center justify-between">
+      <div className="container mx-auto flex items-center justify-between max-w-7xl">
         {/* Logo */}
-        <Link to="/" className="z-50">
+        <Link to="/" className="z-50 flex-shrink-0">
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5, delay: 0.2 }}
             className="font-cashDisplay text-xl text-white flex items-center"
           >
-            <div className="w-10 h-10 rounded-full bg-gradient-to-br from-gray-700 to-black border border-gray-600 flex items-center justify-center mr-3">
-              <span className="font-bold text-lg">T3</span>
+            <div className="w-8 h-8 lg:w-10 lg:h-10 rounded-lg bg-gradient-to-br from-yellow-400 to-yellow-600 flex items-center justify-center mr-2 lg:mr-3 shadow-lg">
+              <span className="font-bold text-sm lg:text-lg text-black">T3</span>
             </div>
-            <span className="font-bold mr-1">T3RN</span> <span className="text-gray-400 text-lg">Desenvolvimento</span>
+            <div className="hidden sm:block">
+              <span className="font-bold mr-1">T3RN</span> 
+              <span className="text-yellow-400 text-base lg:text-lg">Desenvolvimento</span>
+            </div>
+            <div className="block sm:hidden">
+              <span className="font-bold text-lg">T3RN</span>
+            </div>
           </motion.div>
         </Link>
         
-        {/* Contact Quick Links - Desktop */}
-        <div className="hidden md:flex items-center space-x-6 absolute left-1/2 transform -translate-x-1/2">
-          <a href="tel:+551999042072" className="flex items-center text-gray-300 hover:text-white transition-colors">
+        {/* Contact Quick Links - Desktop Only */}
+        <div className="hidden xl:flex items-center space-x-6 absolute left-1/2 transform -translate-x-1/2">
+          <a href="tel:+551999042072" className="flex items-center text-gray-300 hover:text-yellow-400 transition-colors">
             <Phone className="w-4 h-4 mr-2" />
             <span className="text-sm">(19) 9904-2072</span>
           </a>
-          <a href="mailto:contato@t3rn.com.br" className="flex items-center text-gray-300 hover:text-white transition-colors">
+          <a href="mailto:contato@t3rn.com.br" className="flex items-center text-gray-300 hover:text-yellow-400 transition-colors">
             <Mail className="w-4 h-4 mr-2" />
             <span className="text-sm">contato@t3rn.com.br</span>
           </a>
         </div>
         
         {/* Desktop Navigation */}
-        <nav className="hidden md:flex">
-          <div className="bg-gray-900 border border-gray-800 rounded-full px-1 py-1 flex items-center">
+        <nav className="hidden lg:flex">
+          <div className="bg-gray-900/90 border border-yellow-400/30 rounded-full px-1 py-1 flex items-center backdrop-blur-sm">
             {navItems.slice(0, 6).map((item, index) => (
               <motion.div
                 key={item.name}
@@ -87,14 +93,14 @@ export default function Navbar() {
                 {item.href.startsWith("/") && !item.href.includes("#") ? (
                   <Link 
                     to={item.href} 
-                    className="px-4 py-2 text-sm text-gray-300 hover:text-white transition-colors rounded-full hover:bg-gray-800"
+                    className="px-3 xl:px-4 py-2 text-xs xl:text-sm text-gray-300 hover:text-yellow-400 transition-colors rounded-full hover:bg-yellow-400/10"
                   >
                     {item.name}
                   </Link>
                 ) : (
                   <a
                     href={item.href}
-                    className="px-4 py-2 text-sm text-gray-300 hover:text-white transition-colors rounded-full hover:bg-gray-800"
+                    className="px-3 xl:px-4 py-2 text-xs xl:text-sm text-gray-300 hover:text-yellow-400 transition-colors rounded-full hover:bg-yellow-400/10"
                   >
                     {item.name}
                   </a>
@@ -105,10 +111,10 @@ export default function Navbar() {
         </nav>
         
         {/* Mobile Menu Button */}
-        <div className="md:hidden">
+        <div className="lg:hidden">
           <button 
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="p-2 focus:outline-none"
+            className="p-2 focus:outline-none hover:bg-yellow-400/10 rounded-lg transition-colors"
             aria-label="Toggle menu"
           >
             {mobileMenuOpen ? (
@@ -127,16 +133,16 @@ export default function Navbar() {
           animate={{ opacity: 1, height: "auto" }}
           exit={{ opacity: 0, height: 0 }}
           transition={{ duration: 0.3 }}
-          className="md:hidden absolute top-full left-0 right-0 bg-black border-t border-gray-800 shadow-2xl"
+          className="lg:hidden absolute top-full left-0 right-0 bg-black/95 border-t border-yellow-400/30 shadow-2xl backdrop-blur-md"
         >
-          <div className="container mx-auto py-4 px-6 flex flex-col space-y-3">
+          <div className="container mx-auto py-4 px-4 flex flex-col space-y-1 max-w-7xl">
             {/* Mobile Contact Quick Links */}
-            <div className="flex flex-col space-y-3 mb-3 border-b border-gray-800 pb-3">
-              <a href="tel:+551999042072" className="flex items-center text-gray-300 hover:text-white transition-colors py-2">
+            <div className="flex flex-col space-y-2 mb-4 border-b border-yellow-400/20 pb-4">
+              <a href="tel:+551999042072" className="flex items-center text-gray-300 hover:text-yellow-400 transition-colors py-2 px-3 rounded-lg hover:bg-yellow-400/10">
                 <Phone className="w-5 h-5 mr-3" />
                 <span>(19) 9904-2072</span>
               </a>
-              <a href="mailto:contato@t3rn.com.br" className="flex items-center text-gray-300 hover:text-white transition-colors py-2">
+              <a href="mailto:contato@t3rn.com.br" className="flex items-center text-gray-300 hover:text-yellow-400 transition-colors py-2 px-3 rounded-lg hover:bg-yellow-400/10">
                 <Mail className="w-5 h-5 mr-3" />
                 <span>contato@t3rn.com.br</span>
               </a>
@@ -147,7 +153,7 @@ export default function Navbar() {
                 {item.href.startsWith("/") && !item.href.includes("#") ? (
                   <Link
                     to={item.href}
-                    className="py-3 px-4 text-gray-300 hover:text-white hover:bg-gray-800 rounded-lg transition-colors block"
+                    className="py-3 px-3 text-gray-300 hover:text-yellow-400 hover:bg-yellow-400/10 rounded-lg transition-colors block"
                     onClick={() => setMobileMenuOpen(false)}
                   >
                     {item.name}
@@ -155,7 +161,7 @@ export default function Navbar() {
                 ) : (
                   <a
                     href={item.href}
-                    className="py-3 px-4 text-gray-300 hover:text-white hover:bg-gray-800 rounded-lg transition-colors block"
+                    className="py-3 px-3 text-gray-300 hover:text-yellow-400 hover:bg-yellow-400/10 rounded-lg transition-colors block"
                     onClick={() => setMobileMenuOpen(false)}
                   >
                     {item.name}
