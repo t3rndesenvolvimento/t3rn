@@ -1,14 +1,6 @@
 
 import { motion } from "framer-motion";
 import { Check, Award, Clock, Users, Star, Lightbulb, Shield, Globe, Target, Rocket } from "lucide-react";
-import { 
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle 
-} from "@/components/ui/card";
 
 export default function AboutSection() {
   return (
@@ -20,8 +12,8 @@ export default function AboutSection() {
       <div className="absolute inset-0 bg-grid-pattern opacity-20 -z-10"></div>
       
       {/* Decorative elements */}
-      <div className="absolute top-20 left-10 w-64 h-64 bg-t3rn-highlight/20 rounded-full blur-3xl -z-10"></div>
-      <div className="absolute bottom-20 right-10 w-80 h-80 bg-t3rn-blue/20 rounded-full blur-3xl -z-10"></div>
+      <div className="absolute top-20 left-10 w-64 h-64 bg-t3rn-gold-400/10 rounded-full blur-3xl -z-10"></div>
+      <div className="absolute bottom-20 right-10 w-80 h-80 bg-gray-700/20 rounded-full blur-3xl -z-10"></div>
       
       <div className="container px-4 md:px-8 max-w-7xl mx-auto">
         {/* Section Header */}
@@ -32,12 +24,12 @@ export default function AboutSection() {
           viewport={{ once: true }}
           className="text-center max-w-3xl mx-auto mb-16"
         >
-          <span className="inline-block px-4 py-1.5 bg-t3rn-highlight/10 border border-t3rn-highlight/20 rounded-full text-sm font-medium text-t3rn-highlight mb-4">
+          <span className="inline-block px-4 py-1.5 bg-t3rn-gold-400/10 border border-t3rn-gold-400/20 rounded-full text-sm font-medium text-t3rn-gold-400 mb-4">
             SOBRE A T3RN
           </span>
           
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-cashDisplay font-bold mb-6 text-white">
-            Inovação com <span className="text-t3rn-highlight">propósito</span>
+            Inovação com <span className="text-gradient-gold">propósito</span>
           </h2>
           
           <p className="text-lg text-gray-300">
@@ -58,7 +50,7 @@ export default function AboutSection() {
               {/* Our Story */}
               <div>
                 <h3 className="text-2xl font-cashDisplay font-bold text-white mb-4 inline-flex items-center">
-                  <span className="w-10 h-10 flex items-center justify-center rounded-lg bg-t3rn-highlight/20 text-t3rn-highlight mr-3">
+                  <span className="w-10 h-10 flex items-center justify-center rounded-lg bg-t3rn-gold-400/20 text-t3rn-gold-400 mr-3">
                     <Lightbulb className="w-5 h-5" />
                   </span>
                   Nossa História
@@ -74,7 +66,7 @@ export default function AboutSection() {
               {/* Our Mission */}
               <div>
                 <h3 className="text-2xl font-cashDisplay font-bold text-white mb-4 inline-flex items-center">
-                  <span className="w-10 h-10 flex items-center justify-center rounded-lg bg-t3rn-orange/20 text-t3rn-orange mr-3">
+                  <span className="w-10 h-10 flex items-center justify-center rounded-lg bg-gray-700/20 text-gray-400 mr-3">
                     <Target className="w-5 h-5" />
                   </span>
                   Nossa Missão
@@ -89,7 +81,7 @@ export default function AboutSection() {
               {/* Core Values */}
               <div>
                 <h3 className="text-2xl font-cashDisplay font-bold text-white mb-4 inline-flex items-center">
-                  <span className="w-10 h-10 flex items-center justify-center rounded-lg bg-t3rn-blue/20 text-t3rn-blue mr-3">
+                  <span className="w-10 h-10 flex items-center justify-center rounded-lg bg-t3rn-gold-400/20 text-t3rn-gold-400 mr-3">
                     <Star className="w-5 h-5" />
                   </span>
                   Nossos Valores
@@ -102,7 +94,7 @@ export default function AboutSection() {
                     { value: "Colaboração", icon: <Users className="w-4 h-4" /> }
                   ].map((item, idx) => (
                     <div key={idx} className="flex items-center">
-                      <span className="text-t3rn-highlight mr-2">{item.icon}</span>
+                      <span className="text-t3rn-gold-400 mr-2">{item.icon}</span>
                       <span className="text-gray-200">{item.value}</span>
                     </div>
                   ))}
@@ -120,7 +112,7 @@ export default function AboutSection() {
             className="relative"
           >
             {/* Main Image */}
-            <div className="relative z-10 rounded-xl overflow-hidden shadow-[0_0_25px_rgba(139,92,246,0.3)] border border-t3rn-highlight/30">
+            <div className="relative z-10 rounded-xl overflow-hidden shadow-[0_0_25px_rgba(212,175,55,0.2)] border border-t3rn-gold-400/30">
               <img 
                 src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&q=80" 
                 alt="T3RN Team Collaboration" 
@@ -135,7 +127,7 @@ export default function AboutSection() {
                 <blockquote className="text-white italic text-lg">
                   "Acreditamos que o futuro digital é construído hoje, com cada linha de código que escrevemos."
                 </blockquote>
-                <div className="mt-2 text-t3rn-highlight font-medium">Ricardo Oliveira, CEO</div>
+                <div className="mt-2 text-t3rn-gold-400 font-medium">Ricardo Oliveira, CEO</div>
               </div>
             </div>
             
@@ -153,10 +145,10 @@ export default function AboutSection() {
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.4, delay: 0.4 + index * 0.1 }}
                   viewport={{ once: true }}
-                  className="bg-gradient-to-br from-gray-900 to-black rounded-xl p-4 border border-gray-800 hover:border-t3rn-highlight/50 transition-all shadow-lg"
+                  className="bg-gradient-to-br from-gray-900 to-black rounded-xl p-4 border border-gray-800 hover:border-t3rn-gold-400/50 transition-all shadow-lg"
                 >
                   <div className="flex items-center mb-2">
-                    <div className="w-8 h-8 rounded-full bg-t3rn-highlight/20 flex items-center justify-center text-t3rn-highlight mr-3">
+                    <div className="w-8 h-8 rounded-full bg-t3rn-gold-400/20 flex items-center justify-center text-t3rn-gold-400 mr-3">
                       {stat.icon}
                     </div>
                     <div className="text-3xl font-bold text-white">{stat.number}</div>
@@ -167,83 +159,9 @@ export default function AboutSection() {
             </div>
             
             {/* Decorative elements */}
-            <div className="absolute -top-6 -right-6 w-20 h-20 border-2 border-t3rn-highlight rounded-xl -z-10 hidden md:block"></div>
-            <div className="absolute -bottom-6 -left-6 w-32 h-32 border-2 border-t3rn-blue rounded-full -z-10 hidden md:block"></div>
+            <div className="absolute -top-6 -right-6 w-20 h-20 border-2 border-t3rn-gold-400 rounded-xl -z-10 hidden md:block"></div>
+            <div className="absolute -bottom-6 -left-6 w-32 h-32 border-2 border-gray-700 rounded-full -z-10 hidden md:block"></div>
           </motion.div>
-        </div>
-        
-        {/* Team Section */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          viewport={{ once: true }}
-          className="text-center mb-12"
-        >
-          <h3 className="text-3xl font-cashDisplay font-bold text-white mb-4">
-            Conheça nossa equipe <span className="text-t3rn-highlight">excepcional</span>
-          </h3>
-          <p className="text-gray-300 max-w-3xl mx-auto">
-            Uma combinação perfeita de talentos criativos e técnicos, unidos pela visão 
-            de transformar ideias em soluções digitais impactantes.
-          </p>
-        </motion.div>
-        
-        {/* Team Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 mb-16">
-          {[
-            {
-              name: "Ricardo Oliveira",
-              role: "CEO & Fundador",
-              image: "https://randomuser.me/api/portraits/men/32.jpg",
-              color: "bg-t3rn-highlight/20 border-t3rn-highlight/30"
-            },
-            {
-              name: "Amanda Santos",
-              role: "Diretora de Design",
-              image: "https://randomuser.me/api/portraits/women/44.jpg",
-              color: "bg-t3rn-orange/20 border-t3rn-orange/30"
-            },
-            {
-              name: "Lucas Mendes",
-              role: "Líder de Desenvolvimento",
-              image: "https://randomuser.me/api/portraits/men/68.jpg",
-              color: "bg-t3rn-blue/20 border-t3rn-blue/30"
-            },
-            {
-              name: "Carolina Lima",
-              role: "Gerente de Projetos",
-              image: "https://randomuser.me/api/portraits/women/65.jpg",
-              color: "bg-gradient-to-r from-t3rn-highlight/20 to-t3rn-blue/20 border-t3rn-highlight/30"
-            }
-          ].map((member, idx) => (
-            <motion.div
-              key={idx}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4, delay: 0.1 * idx }}
-              viewport={{ once: true }}
-            >
-              <Card className={`${member.color} bg-opacity-10 backdrop-blur-sm border hover:shadow-lg transition-all overflow-hidden group`}>
-                <div className="h-48 overflow-hidden">
-                  <img 
-                    src={member.image} 
-                    alt={member.name} 
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                  />
-                </div>
-                <CardHeader className="pb-2">
-                  <CardTitle className="text-white text-xl">{member.name}</CardTitle>
-                  <CardDescription>{member.role}</CardDescription>
-                </CardHeader>
-                <CardFooter className="pt-0 text-sm text-gray-400">
-                  <div className="flex space-x-3 text-gray-300">
-                    {/* Social icons would go here */}
-                  </div>
-                </CardFooter>
-              </Card>
-            </motion.div>
-          ))}
         </div>
         
         {/* Why Choose Us */}
@@ -255,12 +173,12 @@ export default function AboutSection() {
           className="rounded-2xl border border-gray-800 p-8 md:p-12 bg-gradient-to-br from-black to-gray-900 shadow-xl relative overflow-hidden"
         >
           {/* Background glow */}
-          <div className="absolute -top-24 -left-24 w-64 h-64 bg-t3rn-highlight/10 rounded-full blur-3xl"></div>
-          <div className="absolute -bottom-24 -right-24 w-64 h-64 bg-t3rn-blue/10 rounded-full blur-3xl"></div>
+          <div className="absolute -top-24 -left-24 w-64 h-64 bg-t3rn-gold-400/10 rounded-full blur-3xl"></div>
+          <div className="absolute -bottom-24 -right-24 w-64 h-64 bg-gray-700/10 rounded-full blur-3xl"></div>
           
           <div className="relative z-10">
             <h3 className="text-3xl font-cashDisplay font-bold text-white mb-8 text-center">
-              Por que escolher a <span className="text-t3rn-highlight">T3RN</span>?
+              Por que escolher a <span className="text-gradient-gold">T3RN</span>?
             </h3>
             
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -269,37 +187,37 @@ export default function AboutSection() {
                   title: "Soluções Personalizadas",
                   description: "Criamos soluções sob medida para atender às necessidades específicas do seu negócio",
                   icon: <Target className="w-6 h-6" />,
-                  color: "bg-t3rn-highlight/20 text-t3rn-highlight"
+                  color: "bg-t3rn-gold-400/20 text-t3rn-gold-400"
                 },
                 {
                   title: "Equipe Especializada",
                   description: "Desenvolvedores, designers e estrategistas com anos de experiência no mercado",
                   icon: <Users className="w-6 h-6" />,
-                  color: "bg-t3rn-blue/20 text-t3rn-blue"
+                  color: "bg-gray-700/20 text-gray-400"
                 },
                 {
                   title: "Resultados Comprovados",
                   description: "Histórico de sucesso com clientes de diversos setores e portes",
                   icon: <Award className="w-6 h-6" />,
-                  color: "bg-t3rn-orange/20 text-t3rn-orange"
+                  color: "bg-t3rn-gold-400/20 text-t3rn-gold-400"
                 },
                 {
                   title: "Suporte Contínuo",
                   description: "Acompanhamento e suporte técnico para garantir o sucesso contínuo do seu projeto",
                   icon: <Shield className="w-6 h-6" />,
-                  color: "bg-t3rn-highlight/20 text-t3rn-highlight"
+                  color: "bg-gray-700/20 text-gray-400"
                 },
                 {
                   title: "Tecnologia de Ponta",
                   description: "Utilizamos as mais recentes tecnologias para desenvolver soluções modernas e eficientes",
                   icon: <Rocket className="w-6 h-6" />,
-                  color: "bg-t3rn-blue/20 text-t3rn-blue"
+                  color: "bg-t3rn-gold-400/20 text-t3rn-gold-400"
                 },
                 {
                   title: "Presença Global",
                   description: "Atendemos clientes no Brasil e no exterior, com soluções adaptadas para o mercado global",
                   icon: <Globe className="w-6 h-6" />,
-                  color: "bg-t3rn-orange/20 text-t3rn-orange"
+                  color: "bg-gray-700/20 text-gray-400"
                 }
               ].map((feature, idx) => (
                 <motion.div
@@ -308,7 +226,7 @@ export default function AboutSection() {
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.4, delay: 0.1 * idx }}
                   viewport={{ once: true }}
-                  className="bg-gray-900/50 backdrop-blur-sm rounded-xl p-6 border border-gray-800 hover:border-t3rn-highlight/50 transition-all"
+                  className="bg-gray-900/50 backdrop-blur-sm rounded-xl p-6 border border-gray-800 hover:border-t3rn-gold-400/50 transition-all"
                 >
                   <div className={`w-12 h-12 rounded-lg ${feature.color} flex items-center justify-center mb-4`}>
                     {feature.icon}
@@ -338,7 +256,7 @@ export default function AboutSection() {
           <div className="flex flex-wrap justify-center gap-4">
             <motion.a 
               href="#contact"
-              className="px-8 py-3 bg-gradient-to-r from-t3rn-highlight to-t3rn-highlight/80 text-white font-medium rounded-lg hover:shadow-lg hover:shadow-t3rn-highlight/20 transition-all"
+              className="px-8 py-3 bg-gradient-to-r from-t3rn-gold-400 to-t3rn-gold-600 text-black font-medium rounded-lg hover:shadow-lg hover:shadow-t3rn-gold-400/20 transition-all"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.98 }}
             >
@@ -346,7 +264,7 @@ export default function AboutSection() {
             </motion.a>
             <motion.a 
               href="/orcamento"
-              className="px-8 py-3 bg-transparent border border-t3rn-highlight/50 text-t3rn-highlight font-medium rounded-lg hover:bg-t3rn-highlight/10 transition-all"
+              className="px-8 py-3 bg-transparent border border-t3rn-gold-400/50 text-t3rn-gold-400 font-medium rounded-lg hover:bg-t3rn-gold-400/10 transition-all"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.98 }}
             >

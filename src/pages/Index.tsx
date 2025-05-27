@@ -150,7 +150,7 @@ const Index = () => {
           variants={fadeInUpVariants}
           className="relative"
         >
-          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-yellow-400/5 to-transparent pointer-events-none"></div>
+          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-t3rn-gold-400/5 to-transparent pointer-events-none"></div>
           <CustomerQuestionnaire />
         </motion.div>
         

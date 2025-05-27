@@ -44,13 +44,13 @@ const LoadingSpinner = ({ fullScreen = false }: LoadingSpinnerProps) => {
     return (
       <div className="fixed inset-0 z-50 flex items-center justify-center bg-black overflow-hidden">
         {/* Technical grid background */}
-        <div className="absolute inset-0 opacity-20">
+        <div className="absolute inset-0 opacity-10">
           <div className="absolute inset-0" style={{
             backgroundImage: `
               linear-gradient(rgba(212, 175, 55, 0.1) 1px, transparent 1px),
               linear-gradient(90deg, rgba(212, 175, 55, 0.1) 1px, transparent 1px)
             `,
-            backgroundSize: '20px 20px'
+            backgroundSize: '40px 40px'
           }} />
         </div>
         
@@ -62,21 +62,21 @@ const LoadingSpinner = ({ fullScreen = false }: LoadingSpinnerProps) => {
             transition={{ duration: 0.8 }}
             className="relative mb-12"
           >
-            <div className="w-20 h-20 relative">
+            <div className="w-24 h-24 relative">
               <motion.div 
-                className="absolute inset-0 bg-gradient-to-br from-yellow-400 to-yellow-600 rounded-lg shadow-2xl"
+                className="absolute inset-0 bg-gradient-to-br from-t3rn-gold-400 to-t3rn-gold-600 rounded-lg shadow-2xl"
                 style={{ 
                   clipPath: "polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)" 
                 }}
                 animate={{ 
                   boxShadow: [
-                    "0 0 20px rgba(212, 175, 55, 0.3)",
-                    "0 0 40px rgba(212, 175, 55, 0.6)",
-                    "0 0 20px rgba(212, 175, 55, 0.3)"
+                    "0 0 20px rgba(212, 175, 55, 0.2)",
+                    "0 0 40px rgba(212, 175, 55, 0.4)",
+                    "0 0 20px rgba(212, 175, 55, 0.2)"
                   ]
                 }}
                 transition={{ 
-                  duration: 2,
+                  duration: 3,
                   repeat: Infinity,
                   ease: "easeInOut"
                 }}
@@ -93,10 +93,10 @@ const LoadingSpinner = ({ fullScreen = false }: LoadingSpinnerProps) => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3, duration: 0.6 }}
-            className="text-center mb-8"
+            className="text-center mb-12"
           >
-            <h1 className="text-3xl font-bold text-white mb-2">T3RN</h1>
-            <p className="text-yellow-400 text-lg font-medium">DESENVOLVIMENTO</p>
+            <h1 className="text-4xl font-bold text-white mb-2 font-cashDisplay">T3RN</h1>
+            <p className="text-t3rn-gold-400 text-lg font-medium tracking-wider">DESENVOLVIMENTO</p>
           </motion.div>
           
           {/* Technical loading indicator */}
@@ -107,19 +107,19 @@ const LoadingSpinner = ({ fullScreen = false }: LoadingSpinnerProps) => {
             className="w-full mb-8"
           >
             {/* Progress bar */}
-            <div className="relative w-full h-2 bg-gray-800 rounded-full overflow-hidden mb-4">
+            <div className="relative w-full h-1 bg-gray-800 rounded-full overflow-hidden mb-6">
               <motion.div 
-                className="absolute top-0 left-0 h-full bg-gradient-to-r from-yellow-400 to-yellow-600"
+                className="absolute top-0 left-0 h-full bg-gradient-to-r from-t3rn-gold-400 to-t3rn-gold-600"
                 style={{ width: `${progress}%` }}
                 transition={{ duration: 0.1 }}
               />
-              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white to-transparent opacity-20 animate-pulse" />
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-gray-600 to-transparent opacity-20 animate-pulse" />
             </div>
             
             {/* Progress percentage */}
             <div className="flex justify-between items-center text-sm">
-              <span className="text-gray-400 font-mono">{progress.toFixed(0)}%</span>
-              <span className="text-yellow-400 font-mono">LOADING...</span>
+              <span className="text-gray-500 font-mono">{progress.toFixed(0)}%</span>
+              <span className="text-t3rn-gold-400 font-mono text-xs tracking-widest">LOADING...</span>
             </div>
           </motion.div>
           
@@ -136,7 +136,7 @@ const LoadingSpinner = ({ fullScreen = false }: LoadingSpinnerProps) => {
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -10 }}
-                className="text-gray-300 font-mono text-sm"
+                className="text-gray-400 font-mono text-sm"
               >
                 {loadingSteps[currentStep]}
               </motion.span>
@@ -150,10 +150,10 @@ const LoadingSpinner = ({ fullScreen = false }: LoadingSpinnerProps) => {
             transition={{ delay: 1 }}
             className="mt-8 text-center"
           >
-            <div className="flex items-center justify-center space-x-4 text-xs text-gray-500 font-mono">
-              <span>v2.1.0</span>
+            <div className="flex items-center justify-center space-x-4 text-xs text-gray-600 font-mono">
+              <span>v2.4.0</span>
               <span>•</span>
-              <span>BUILD 2024.01</span>
+              <span>BUILD 2024.12</span>
               <span>•</span>
               <span>REACT 18</span>
             </div>
@@ -161,9 +161,9 @@ const LoadingSpinner = ({ fullScreen = false }: LoadingSpinnerProps) => {
         </div>
         
         {/* Subtle animated elements */}
-        <div className="absolute top-20 left-20 w-2 h-2 bg-yellow-400 rounded-full animate-ping opacity-60" />
-        <div className="absolute bottom-32 right-24 w-1 h-1 bg-yellow-400 rounded-full animate-pulse" />
-        <div className="absolute top-1/3 right-16 w-1.5 h-1.5 bg-yellow-400 rounded-full animate-ping opacity-40" style={{ animationDelay: '1s' }} />
+        <div className="absolute top-20 left-20 w-1 h-1 bg-t3rn-gold-400 rounded-full animate-ping opacity-40" />
+        <div className="absolute bottom-32 right-24 w-1 h-1 bg-t3rn-gold-400 rounded-full animate-pulse opacity-60" />
+        <div className="absolute top-1/3 right-16 w-1 h-1 bg-t3rn-gold-400 rounded-full animate-ping opacity-30" style={{ animationDelay: '1.5s' }} />
       </div>
     );
   }
@@ -172,7 +172,7 @@ const LoadingSpinner = ({ fullScreen = false }: LoadingSpinnerProps) => {
   return (
     <div className="relative">
       <motion.div 
-        className="border-4 border-t-yellow-400 border-r-yellow-500 border-b-yellow-600 border-l-transparent rounded-full w-10 h-10"
+        className="border-4 border-t-t3rn-gold-400 border-r-t3rn-gold-500 border-b-t3rn-gold-600 border-l-transparent rounded-full w-10 h-10"
         animate={{ rotate: 360 }}
         transition={{ 
           duration: 1.2, 

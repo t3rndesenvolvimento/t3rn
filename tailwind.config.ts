@@ -78,13 +78,13 @@ export default {
 						900: "#202023",
 					},
 					gold: {
-						400: "#FBBF24",
-						500: "#F59E0B", 
-						600: "#D97706",
-						700: "#B45309",
+						400: "#D4AF37",
+						500: "#B8860B", 
+						600: "#9A7209",
+						700: "#8B6914",
 					},
-					orange: "#F97316",
-					blue: "#0EA5E9",
+					accent: "#D4AF37",
+					highlight: "#D4AF37",
 				}
 			},
 			borderRadius: {
