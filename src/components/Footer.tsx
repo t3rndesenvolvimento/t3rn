@@ -1,3 +1,4 @@
+
 import { useState } from 'react';
 import { toast } from '@/hooks/use-toast';
 import { Input } from '@/components/ui/input';
@@ -108,8 +109,12 @@ const Footer = () => {
                 transition={{ duration: 0.6 }}
                 className="flex items-center mb-6"
               >
-                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-gray-700 to-black border border-gray-600 flex items-center justify-center mr-3">
-                  <span className="font-bold text-xl text-white">T3</span>
+                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-gray-800/80 to-gray-900/80 border border-t3rn-silver-400/30 flex items-center justify-center mr-3 p-2">
+                  <img 
+                    src="/lovable-uploads/aa2e98e2-f912-4daf-a318-60054bede48b.png" 
+                    alt="T3RN Logo" 
+                    className="w-full h-full object-contain filter drop-shadow-sm"
+                  />
                 </div>
                 <div>
                   <span className="text-2xl font-bold block">T3RN</span>

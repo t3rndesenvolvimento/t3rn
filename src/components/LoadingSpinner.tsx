@@ -62,7 +62,7 @@ const LoadingSpinner = ({ fullScreen = false }: LoadingSpinnerProps) => {
           >
             <div className="w-24 h-24 relative">
               <motion.div 
-                className="absolute inset-0 bg-gradient-to-br from-t3rn-silver-500 to-t3rn-silver-700 rounded-xl shadow-2xl backdrop-blur-sm"
+                className="absolute inset-0 bg-gradient-to-br from-gray-800/50 to-gray-900/50 rounded-xl shadow-2xl backdrop-blur-sm border border-t3rn-silver-400/20"
                 animate={{ 
                   boxShadow: [
                     "0 0 20px rgba(220, 38, 38, 0.3)",
@@ -76,8 +76,12 @@ const LoadingSpinner = ({ fullScreen = false }: LoadingSpinnerProps) => {
                   ease: "easeInOut"
                 }}
               >
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <span className="text-white font-bold text-3xl font-cashDisplay">T3</span>
+                <div className="absolute inset-0 flex items-center justify-center p-3">
+                  <img 
+                    src="/lovable-uploads/aa2e98e2-f912-4daf-a318-60054bede48b.png" 
+                    alt="T3RN Logo" 
+                    className="w-full h-full object-contain filter drop-shadow-lg"
+                  />
                 </div>
                 {/* Glowing border */}
                 <div className="absolute inset-0 rounded-xl border border-t3rn-red-400/50 animate-pulse" />
