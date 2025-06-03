@@ -2,7 +2,7 @@
 import { createContactMessage } from './apiService';
 import { supabase } from '@/integrations/supabase/client';
 
-// Function to save contact message
+// Function to save contact message and send email
 export async function saveContactMessage(formData: {
   name: string;
   email: string;
@@ -10,7 +10,26 @@ export async function saveContactMessage(formData: {
   message: string;
 }) {
   try {
+    // Save to database
     const result = await createContactMessage(formData);
+    
+    // Send email notification
+    const emailResult = await supabase.functions.invoke('send-email', {
+      body: {
+        type: 'contact',
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone,
+        message: formData.message
+      }
+    });
+
+    if (emailResult.error) {
+      console.error('Error sending email:', emailResult.error);
+    } else {
+      console.log('Email sent successfully:', emailResult.data);
+    }
+    
     return {
       success: true,
       message: 'Sua mensagem foi enviada com sucesso!',
@@ -26,7 +45,7 @@ export async function saveContactMessage(formData: {
   }
 }
 
-// Function to save newsletter subscription
+// Function to save newsletter subscription and send email
 export async function saveNewsletter(email: string) {
   try {
     // Check if email already exists in the newsletter_subscribers table
@@ -55,9 +74,23 @@ export async function saveNewsletter(email: string) {
       throw error;
     }
     
+    // Send welcome email
+    const emailResult = await supabase.functions.invoke('send-email', {
+      body: {
+        type: 'newsletter',
+        email: email
+      }
+    });
+
+    if (emailResult.error) {
+      console.error('Error sending newsletter email:', emailResult.error);
+    } else {
+      console.log('Newsletter email sent successfully:', emailResult.data);
+    }
+    
     return {
       success: true,
-      message: 'Inscrição realizada com sucesso! Obrigado por se inscrever.',
+      message: 'Inscrição realizada com sucesso! Verifique seu email para confirmação.',
       data
     };
   } catch (error: any) {
